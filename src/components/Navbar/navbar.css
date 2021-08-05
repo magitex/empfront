@@ -1,0 +1,12 @@
+.navbars{
+    text-align: right;
+    padding: 1rem;
+}
+
+a{
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
+    padding: 1rem;
+    text-decoration: none;
+}
