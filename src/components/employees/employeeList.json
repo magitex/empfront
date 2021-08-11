@@ -1,0 +1,29 @@
+[
+    {
+        "id":1,
+        "firstname":"employee",
+        "lastname": "1",
+        "GHT": 123, 
+        "address": "address 1",    
+        "email": "mail 1",  
+        "phone": 123   
+    },
+    {
+        "id":2,
+        "firstname":"employee",
+        "lastname": "2",
+        "GHT": 123, 
+        "address": "address 2",    
+        "email": "mail 2",  
+        "phone": 123     
+    },
+    {
+        "id":3,
+        "firstname":"employee",
+        "lastname": "3",
+        "GHT": 123, 
+        "address": "address 3",    
+        "email": "mail 3",  
+        "phone": 123     
+    }
+]

@@ -1,0 +1,29 @@
+[
+    {
+        "id":1,
+        "firstname":"saravana",
+        "lastname": "Kumar",
+        "GHT": 123, 
+        "address": "east street",    
+        "email": "kmsaravanan1311@gmail.com",  
+        "phone": 9791770762    
+    },
+    {
+        "id":2,
+        "firstname":"saravana",
+        "lastname": "Kumar",
+        "GHT": 123, 
+        "address": "east street",    
+        "email": "kmsaravanan1311@gmail.com",  
+        "phone": 9791770762    
+    },
+    {
+        "id":3,
+        "firstname":"saravana",
+        "lastname": "Kumar",
+        "GHT": 123, 
+        "address": "east street",    
+        "email": "kmsaravanan1311@gmail.com",  
+        "phone": 9791770762    
+    }
+]

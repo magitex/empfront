@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
 import Addemployees from './addemployees';
+import Employeeslist from './employeelist';
 
 export default class Employees extends Component {
     render() {
@@ -15,7 +16,7 @@ export default class Employees extends Component {
                         <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/employees">List</Link>
+                            <Link className="nav-link active" aria-current="page" to="/employeelist">List</Link>
                             </li>
                             <li className="nav-item">
                             <Link className="nav-link" to="/addemployees">Add</Link>
@@ -25,7 +26,8 @@ export default class Employees extends Component {
                     </div>
                 </nav>
             </div>
-            <Switch>              
+            <Switch>         
+                  <Route path="/employeelist"><Employeeslist/></Route>       
                 <Route path="/addemployees"><Addemployees /></Route>        
             </Switch>
         
