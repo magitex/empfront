@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
 import Addproject from './addproject';
+import Editproject from './editproject';
 import Projectlist from './projectlist';
 
 
@@ -32,6 +33,7 @@ export default class Projects extends Component {
             <Switch> 
                 <Route path="/projectlist"><Projectlist/></Route>                
                 <Route path="/addproject"><Addproject /></Route>        
+                <Route path="/editprojects/:id"><Editproject/></Route>        
             </Switch>
         
             </Router>

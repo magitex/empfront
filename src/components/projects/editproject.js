@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import axios from'axios'
 
-export default class Addproject extends Component {
+export default class Editproject extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -11,7 +10,7 @@ export default class Addproject extends Component {
                 status:'',                         
         }
         this.handleInput=this.handleInput.bind(this);
-        this.addProject=this.addProject.bind(this);
+        this.updateProject=this.updateProject.bind(this);
     }
 
     handleInput(e){
@@ -20,27 +19,20 @@ export default class Addproject extends Component {
         })
     }
 
-    addProject(e){
+    updateProject(e){
         e.preventDefault();
         const newProjects = this.state
-        console.log(newProjects)
-
-        axios.post('http://localhost:4000/projects/add',newProjects)
-        .then(response => console.log(response.data))
-
-        
-        this.setState({
-            name:'',
-            module:'',  
-            estimatedtime:'',  
-            status:'',  
-        }) 
+        console.log(newProjects);
+        document.getElementById('name').value=null;
+        document.getElementById('module').value=null;
+        document.getElementById('time').value=null;
+        document.getElementById('status').value=null;
     }
     render() {
         return (
             <div  className='container pt-1'>
-                <h3>Add New Project</h3>
-                <form onSubmit={this.addProject}>
+                <h3>Edit Project</h3>
+                <form onSubmit={this.updateProject}>
                     <div className="row mb-4">
                         <div className="col">
                         <div className="form-outline">
@@ -67,7 +59,7 @@ export default class Addproject extends Component {
                         <input id='status' type="text" value={this.state.status} name='status' onChange={this.handleInput} className="form-control" required/>                       
                     </div>     
 
-                    <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>
+                    <button type="submit" className="btn btn-primary btn-block mb-4">UPDATE</button>
                 </form>                
             </div>
         )

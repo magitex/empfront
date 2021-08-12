@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import axios from'axios'
+//import axios from'axios'
 
 
-export default class Addemployees extends Component {
+export default class Editemployees extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -29,34 +29,40 @@ export default class Addemployees extends Component {
         })
     }
 
+    // componentDidMount(){
+    //     axios.get('http://localhost:4000/employees/'+this.props.match.params.id)
+    //     .then(res =>{
+    //         //console.log(res.data)
+    //         this.setState({ employees: res.data})
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+
+    //     axios.get('http://localhost:4000/employees/')
+    //     .then(res =>{
+    //         if(res.data.length >0){
+    //             this.setState({
+    //                 employees:res.data.map(employee =>employee.firstname),
+    //             })
+    //         }
+    //     })
+    // }
+
     addEmployee(e){
         e.preventDefault();
-        const newCustomerDetails = this.state
-
-        axios.post('http://localhost:4000/employees/add',newCustomerDetails)
-        .then(response => console.log(response.data))
+        const updatedCustomerDetails = this.state
+        console.log(updatedCustomerDetails);   
         
-
-        this.setState({
-            firstname:'',
-                lastname:'',  
-                address1:'',  
-                address2:'',
-                city:'', 
-                state:'',  
-                country:'',   
-                zipcode:'',   
-                email:'',   
-                phone:'',   
-                gst:'',
-        })               
+        // axios.post('http://localhost:4000/employees/update/'+this.props.match.parms.id,updatedCustomerDetails)
+        // .then(res => console.log(res.data))
     }
     
     render() {
         return (
             <div className='container pt-1'>
                 <form onSubmit={this.addEmployee}>
-                <h3>New Employee</h3>
+                <h3>Edit Employee</h3>
                     <div className="row mb-4">
                         <div className="col">
                         <div className="form-outline">
@@ -126,7 +132,7 @@ export default class Addemployees extends Component {
                         <input id='gst' type="number" value={this.state.gst} name='gst' onChange={this.handleInput} className="form-control" required/>                         
                     </div>
                                                 
-                    <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>
+                    <button type="submit" className="btn btn-primary btn-block mb-4">UPDATE</button>
                 </form>
             </div>
         )

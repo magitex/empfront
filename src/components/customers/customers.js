@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
 import AddCustomers from "./addcustomers";
+import Editcustomer from './editcustomer';
 import Customerslist from './customerslist';
 
 export default class Customers extends Component {
@@ -29,6 +30,7 @@ export default class Customers extends Component {
             <Switch> 
                 <Route path="/customerslist"><Customerslist/></Route>                
                 <Route path="/addcustomer"><AddCustomers /></Route>        
+                <Route path="/editcustomer/:id"><Editcustomer/></Route>
             </Switch>
         
             </Router>

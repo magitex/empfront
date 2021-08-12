@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
 import Addemployees from './addemployees';
+import Editemployees from './editemployees';
 import Employeeslist from './employeelist';
 
 export default class Employees extends Component {
@@ -27,8 +28,9 @@ export default class Employees extends Component {
                 </nav>
             </div>
             <Switch>         
-                  <Route path="/employeelist"><Employeeslist/></Route>       
-                <Route path="/addemployees"><Addemployees /></Route>        
+                <Route path="/employeelist"><Employeeslist /></Route>       
+                <Route path="/addemployees"><Addemployees /></Route>
+                <Route path="/editemployees/:id"><Editemployees/></Route>        
             </Switch>
         
             </Router>

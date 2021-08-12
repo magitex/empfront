@@ -1,54 +1,81 @@
 import React, { Component } from 'react'
-import employeeList from './employeeList.json'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+
+function Employee(props) {
+    return (
+            <tr>
+                <td>{props.employee.index}</td>
+                <td>{props.employee.firstname}</td>
+                <td>{props.employee.lastname}</td>
+                <td>{props.employee.address1}</td>
+                <td>{props.employee.email}</td>
+                <td>{props.employee.phone}</td>
+                <td>{props.employee.gst}</td>
+                <td>
+                <Link to={'/editemployees/'+props.employee._id} className='btn bi bi-pencil'></Link> 
+                <i className='btn bi bi-trash'></i>
+                </td>
+            </tr>
+    )
+}
+
+
 
 export default class Employeeslist extends Component {
+    constructor(props){
+        super(props);
+
+       // this.deleteEmployee = this.deleteEmployee.bind(this)
+
+        this.state = {employees: []};
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:4000/employees/')
+        .then(res =>{
+            //console.log(res.data)
+            this.setState({ employees: res.data})
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    deleteEmployee(id){
+        axios.delete('http://localhost:4000/employees/'+id)
+        .then(res => console.log(res.data));
+
+        this.setState({
+            employees: this.state.employees.filter(el => el._id !== id)
+        })
+    }
+
+    employeeList(){
+        return this.state.employees.map(currentemployee =>{
+            return <Employee employee={currentemployee} key={currentemployee._id} />;
+
+        })
+    }
+
     render() {       
         return (
             <div>
                 <table className="container table">
-                    <thead>
+                    <thead className='thead-light'>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Adress</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
+                            <th>#</th>
+                            <th>First</th>
+                            <th>Last</th>
+                            <th>Adress</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>GST</th>
                         </tr>
                     </thead>
                     <tbody>                                            
-                         <tr>
-                            <th scope="row" >
-                            {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.id}</h6>
-                                 })}    
-                            </th>
-                            <td>    
-                                {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.firstname}</h6>
-                                 })}    
-                             </td>
-                            <td>
-                            {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.lastname}</h6>
-                                 })}  
-                            </td>
-                            <td>
-                            {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.address}</h6>
-                                 })}  
-                            </td>
-                            <td>
-                            {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.email}</h6>
-                                 })} 
-                            </td>
-                            <td>
-                            {employeeList.map((employeeList,index)=>{
-                                     return<h6 key={index}>{employeeList.phone}</h6>
-                                 })} 
-                            </td>
-                        </tr>                                                                                  
+                            {this.employeeList()}                                                                                                                                              
                     </tbody>
                 </table>
             </div>

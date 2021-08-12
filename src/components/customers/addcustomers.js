@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import axios from'axios'
 
-
-export default class Addcustomers extends Component {
+export default class addCustomers extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -15,7 +15,7 @@ export default class Addcustomers extends Component {
                 zipcode:'',   
                 email:'',   
                 phone:'',   
-                GHT:'',               
+                gst:'',               
 
         }
         this.handleInput=this.handleInput.bind(this);
@@ -31,18 +31,25 @@ export default class Addcustomers extends Component {
     addCustomer(e){
         e.preventDefault();
         const newCustomerDetails = this.state
-        console.log(newCustomerDetails);
-        document.getElementById('firstname').value=null;
-        document.getElementById('lastname').value=null;
-        document.getElementById('address1').value=null;
-        document.getElementById('address2').value=null;
-        document.getElementById('city').value=null;
-        document.getElementById('state').value=null;
-        document.getElementById('country').value=null;
-        document.getElementById('zipcode').value=null;
-        document.getElementById('phone').value=null;
-        document.getElementById('email').value=null;
-        document.getElementById('gst').value=null;         
+        
+        axios.post('http://localhost:4000/customers/add',newCustomerDetails)
+        .then(response => console.log(response.data))
+
+        
+        this.setState({
+            firstname:'',
+                lastname:'',  
+                address1:'',  
+                address2:'',
+                city:'', 
+                state:'',  
+                country:'',   
+                zipcode:'',   
+                email:'',   
+                phone:'',   
+                gst:'',
+        })   
+         
     }
 
     render() {
@@ -116,7 +123,7 @@ export default class Addcustomers extends Component {
 
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example9">GST#</label>  
-                        <input id='gst' type="number" value={this.state.GHT} name='GHT' onChange={this.handleInput} className="form-control" required/>                        
+                        <input id='gst' type="number" value={this.state.gst} name='gst' onChange={this.handleInput} className="form-control" required/>                        
                     </div>
                                                 
                     <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>
