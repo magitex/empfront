@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Link,Switch,Route,withRouter } from 'react-router-dom';
 import Addemployees from './addemployees';
 import Editemployees from './editemployees';
 import Employeeslist from './employeelist';
 
-export default class Employees extends Component {
+class Employees extends Component {
+    
     render() {
         return (
             <Router>
@@ -32,9 +33,9 @@ export default class Employees extends Component {
                 <Route path="/addemployees"><Addemployees /></Route>
                 <Route path="/editemployees/:id"><Editemployees/></Route>        
             </Switch>
-        
             </Router>
 
         )
     }
 }
+export default withRouter(Employees);

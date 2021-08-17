@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import axios from'axios'
+import React, { Component } from 'react';
+import axios from'axios';
+import { withRouter } from 'react-router-dom';
 
-export default class Addproject extends Component {
+class Addproject extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -27,8 +28,8 @@ export default class Addproject extends Component {
 
         axios.post('http://localhost:4000/projects/add',newProjects)
         .then(response => console.log(response.data))
+        window.location=('/projectlist')
 
-        
         this.setState({
             name:'',
             module:'',  
@@ -73,3 +74,5 @@ export default class Addproject extends Component {
         )
     }
 }
+
+export default withRouter(Addproject)

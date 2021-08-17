@@ -1,66 +1,41 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React,{useState,useEffect }  from 'react';
+import Helper from '../helpers/networks';
+import { withRouter} from 'react-router-dom';
+import axios from 'axios';
+import Modal from 'react-modal';
 
+Modal.setAppElement('#root')
 
-function Employee(props) {
+function Employeeslist(props) {
+    const [openModal,setOpenModal] = useState(false)
+    const[employeeslist,setEmployees] = useState([])
+
+    async function employeeList() {       
+        let data;          
+        data= await Helper.employeeData();
+        const tempemployees =data && data.data; 
+        setEmployees(tempemployees); 
+    }
+    
+    useEffect(()=>{ 
+        employeeList();
+    },[])
+    
+    function onDelete(id){
+        console.log(id)
+        
+            axios.delete('http://localhost:4000/employees/'+id) 
+            .then(res=>{
+                    console.log(res.data)   
+                    employeeList();         
+                });
+            
+    };
+
+    function editEmployee(id){
+      props.history.push(`/editemployees/${id}`);
+    }
     return (
-            <tr>
-                <td>{props.employee.index}</td>
-                <td>{props.employee.firstname}</td>
-                <td>{props.employee.lastname}</td>
-                <td>{props.employee.address1}</td>
-                <td>{props.employee.email}</td>
-                <td>{props.employee.phone}</td>
-                <td>{props.employee.gst}</td>
-                <td>
-                <Link to={'/editemployees/'+props.employee._id} className='btn bi bi-pencil'></Link> 
-                <i className='btn bi bi-trash'></i>
-                </td>
-            </tr>
-    )
-}
-
-
-
-export default class Employeeslist extends Component {
-    constructor(props){
-        super(props);
-
-       // this.deleteEmployee = this.deleteEmployee.bind(this)
-
-        this.state = {employees: []};
-    }
-
-    componentDidMount(){
-        axios.get('http://localhost:4000/employees/')
-        .then(res =>{
-            //console.log(res.data)
-            this.setState({ employees: res.data})
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-
-    deleteEmployee(id){
-        axios.delete('http://localhost:4000/employees/'+id)
-        .then(res => console.log(res.data));
-
-        this.setState({
-            employees: this.state.employees.filter(el => el._id !== id)
-        })
-    }
-
-    employeeList(){
-        return this.state.employees.map(currentemployee =>{
-            return <Employee employee={currentemployee} key={currentemployee._id} />;
-
-        })
-    }
-
-    render() {       
-        return (
             <div>
                 <table className="container table">
                     <thead className='thead-light'>
@@ -72,13 +47,55 @@ export default class Employeeslist extends Component {
                             <th>Email</th>
                             <th>Phone</th>
                             <th>GST</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>                                            
-                            {this.employeeList()}                                                                                                                                              
+                    <tbody>                                                            
+                        {employeeslist && employeeslist.map((employee,key)=>(
+                        <tr key={key}>
+                            <td >{employee.id}</td>
+                            <td>{employee.firstname}</td>
+                            <td>{employee.lastname}</td>
+                            <td>{employee.address1}</td>
+                            <td>{employee.email}</td>
+                            <td>{employee.phone}</td>
+                            <td>{employee.gst}</td>
+                            <td>
+                              <button  onClick={()=>editEmployee(employee._id)}  className='btn bi bi-pencil'></button>                               
+                              <i onClick={()=>setOpenModal(true)} className='btn bi bi-trash'></i>
+                                <Modal 
+                                isOpen={openModal} 
+                                onRequestClose={()=>setOpenModal(false)}
+                                style={
+                                    {
+                                        overlay:{
+                                            position:'fixed',
+                                            top:0,
+                                            left:0,
+                                            right:0,
+                                            bottom:0,
+                                            backgroundColor:'grey'
+                                        },
+                                        content:{
+                                            position:'obsolute',
+                                            marginTop:'2rem',
+                                            marginLeft:'25rem',
+                                            marginRight:'25rem'
+                                            
+                                        }
+                                    }
+                                }>
+                                    <h6>Are you sure you want to delete {employee.firstname}</h6> 
+                                    <button  type="button" className="btn btn-success mt-4" onClick={()=>{onDelete(employee._id);setOpenModal(false)}}>Yes</button>    
+                                    <button  type="button" className="btn btn-danger ms-2 mt-4" onClick={()=>setOpenModal(false)}>cancel</button>     
+                                </Modal>
+                            </td>
+                        </tr>
+                         ))}                                                                                                                                                                                
                     </tbody>
-                </table>
-            </div>
-        )
-    }
+                </table>    
+           </div>
+    )
 }
+
+export default withRouter(Employeeslist);

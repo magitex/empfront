@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-import axios from'axios'
+import React, { Component } from 'react';
+import axios from'axios';
+import { withRouter } from 'react-router-dom';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
-export default class addCustomers extends Component {
+
+class addCustomers extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -28,12 +31,20 @@ export default class addCustomers extends Component {
         })
     }
 
+    selectCountry(val){
+        this.setState({country:val})
+    }
+    selectState(val){
+        this.setState({state:val})
+    }
+
     addCustomer(e){
         e.preventDefault();
         const newCustomerDetails = this.state
         
         axios.post('http://localhost:4000/customers/add',newCustomerDetails)
         .then(response => console.log(response.data))
+        window.location=('/customerslist')
 
         
         this.setState({
@@ -53,6 +64,7 @@ export default class addCustomers extends Component {
     }
 
     render() {
+        const {country,state}=this.state;
         return (
             <div className='container pt-1'>
                 <form onSubmit={this.addCustomer}>
@@ -85,22 +97,22 @@ export default class addCustomers extends Component {
                     <div className="row mb-4">
                         <div className="col">
                         <div className="form-outline">
-                            <label className="form-label" htmlFor="form6Example5">City</label>      
-                            <input id='city' type="text"  value={this.state.city} name='city' onChange={this.handleInput}  className="form-control" required/>                           
+                        <label className="form-label" htmlFor="form6Example5">Country</label>
+                            <CountryDropdown className="form-control"  value={country} onChange={(val)=>this.selectCountry(val)}/>
                         </div>
                         </div>
                         <div className="col">
                         <div className="form-outline">
                             <label className="form-label" htmlFor="form6Example6">State</label>
-                            <input id='state' type="text" value={this.state.state} name='state' onChange={this.handleInput} className="form-control" required/>                         
+                            <RegionDropdown className="form-control" country={country}  value={state} onChange={(val)=>this.selectState(val)}/>                           
                         </div>
                         </div>
                     </div>
                     <div className="row mb-4">
                     <div className="col">
                         <div className="form-outline">
-                            <label className="form-label" htmlFor="form6Example6">Country</label>
-                            <input id='country' type="text" value={this.state.county} name='country' onChange={this.handleInput} className="form-control" required/>                         
+                        <   label className="form-label" htmlFor="form6Example5">City</label>
+                            <input id='city' type="text"  value={this.state.city} name='city' onChange={this.handleInput}  className="form-control" required/>                                                   
                         </div>
                         </div>
                         <div className="col">
@@ -132,3 +144,5 @@ export default class addCustomers extends Component {
         )
     }
 }
+
+export default withRouter(addCustomers);

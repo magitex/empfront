@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Link,Switch,Route,withRouter } from 'react-router-dom';
 import AddCustomers from "./addcustomers";
 import Editcustomer from './editcustomer';
 import Customerslist from './customerslist';
 
-export default class Customers extends Component {
+class Customers extends Component {
     render() {
         return (
             <Router>
@@ -37,3 +37,5 @@ export default class Customers extends Component {
         )
     }
 }
+
+export default withRouter(Customers);

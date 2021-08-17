@@ -1,78 +1,98 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React,{useState,useEffect }  from 'react';
+import Helper from '../helpers/networks';
+import { withRouter} from 'react-router-dom';
+import axios from 'axios';
+import Modal from 'react-modal';
 
-function Project(props) {
+Modal.setAppElement('#root')
+
+function Projectlist(props) {
+    const [openModal,setOpenModal] = useState(false)
+    const[projectlist,setProject] = useState([])
+
+    async function projectList() {       
+        let data;          
+        data= await Helper.projectData();
+        const tempprojects =data && data.data;         
+        setProject(tempprojects); 
+    }
+    
+    useEffect(()=>{ 
+        projectList();
+    },[])
+    
+    function onDelete(id){
+        console.log(id)
+        
+            axios.delete('http://localhost:4000/projects/'+id) 
+            .then(res=>{
+                    console.log(res.data)   
+                    projectList();         
+                });
+            
+    };
+
+    function editproject(id){
+      props.history.push(`/editprojects/${id}`);
+    }
+    
     return (
-            <tr>
-                <td>{props.project.index}</td>
-                <td>{props.project.name}</td>
-                <td>{props.project.module}</td>
-                <td>{props.project.estimatedtime}</td>
-                <td>{props.project.status}</td>                
-                <td>
-                <Link to={'/editprojects/'+props.project._id} className='btn bi bi-pencil'></Link> 
-                <i className='btn bi bi-trash'></i>
-                </td>
-            </tr>
+            <div>
+                <table className="container table">
+                    <thead className='thead-light'>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Module</th>
+                            <th>Estimated time</th>
+                            <th>Status</th> 
+                            <th>Actions</th>                           
+                        </tr>
+                    </thead>
+                    <tbody>                                                            
+                        {projectlist && projectlist.map((project,key)=>(
+                        <tr key={key}>
+                            <td >{project.index}</td>
+                            <td>{project.name}</td>
+                            <td>{project.module}</td>
+                            <td>{project.estimatedtime}</td>
+                            <td>{project.status}</td>                            
+                            <td>
+                              <button  onClick={()=>editproject(project._id)}  className='btn bi bi-pencil'></button>                               
+                              <i onClick={()=>setOpenModal(true)} className='btn bi bi-trash'></i>
+                                <Modal 
+                                isOpen={openModal} 
+                                onRequestClose={()=>setOpenModal(false)}
+                                style={
+                                    {
+                                        overlay:{
+                                            position:'fixed',
+                                            top:0,
+                                            left:0,
+                                            right:0,
+                                            bottom:0,
+                                            backgroundColor:'grey'
+                                        },
+                                        content:{
+                                            position:'obsolute',
+                                            marginTop:'2rem',
+                                            marginLeft:'25rem',
+                                            marginRight:'25rem'
+                                            
+                                        }
+                                    }
+                                }>
+                                    <h6>Are you sure you want to delete {project.firstname}</h6> 
+                                    <button  type="button" className="btn btn-success mt-4" onClick={()=>{onDelete(project._id);setOpenModal(false)}}>Yes</button>    
+                                    <button  type="button" className="btn btn-danger ms-2 mt-4" onClick={()=>setOpenModal(false)}>cancel</button>     
+                                </Modal>
+                            </td>
+                        </tr>
+                         ))}                                                                                                                                                                                
+                    </tbody>
+                </table>    
+           </div>
     )
 }
 
-export default class Projectlist extends Component {
-    constructor(props){
-        super(props);
-
-       // this.deleteEmployee = this.deleteEmployee.bind(this)
-
-        this.state = {projects: []};
-    }
-
-    componentDidMount(){
-        axios.get('http://localhost:4000/projects/')
-        .then(res =>{
-            //console.log(res.data)
-            this.setState({ projects: res.data})
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-
-    deleteEmployee(id){
-        axios.delete('http://localhost:4000/projects/'+id)
-        .then(res => console.log(res.data));
-
-        this.setState({
-            projects: this.state.projects.filter(el => el._id !== id)
-        })
-    }
-
-    projectList(){
-        return this.state.projects.map(currentproject =>{
-            return <Project project={currentproject} key={currentproject._id} />;
-
-        })
-    }
-
-    render() {
-        return (
-            <div>
-            <table className="container table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Module</th>
-                        <th scope="col">Estimated Time</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>                                            
-                     {this.projectList()}                                                                                  
-                </tbody>
-            </table>
-        </div>
-
-        )
-    }
-}
+export default withRouter(Projectlist);
