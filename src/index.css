@@ -12,12 +12,3 @@ code {
     monospace;
 }
 
-.openModalBtn{
-  width: 200px;
-  height:40px;
-  border: none;
-  border-radius: 6px;
-  background-color: aquamarine;
-  color: white;
-  cursor: pointer;
-}

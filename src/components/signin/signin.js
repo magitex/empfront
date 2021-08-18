@@ -10,7 +10,7 @@ export default class Signin extends Component {
                 username:'',
                 email:'',  
                 password:'',
-                confirm:''
+              
         }
         this.handleInput=this.handleInput.bind(this);
         this.onSignin=this.onSignin.bind(this);
@@ -49,11 +49,7 @@ export default class Signin extends Component {
                 <div className="form-floating mb-3">
                     <input type="password" name='password' className="form-control" id="floatingPassword" onChange={this.handleInput} placeholder="Password" required/>
                     <label htmlFor="floatingPassword">Password</label>
-                </div>
-                <div className="form-floating mb-3">
-                    <input type='password'  value={this.state.confirm} name='confirm' className="form-control" onChange={this.handleInput} placeholder="Confirm Password" required/>
-                    <label htmlFor="floatingPassword">Confirm Password</label>
-                </div>            
+                </div>                      
                 <div className='d-flex justify-content-start'>
                     <button type="submit" className="btn btn-success mt-2 md-2">Sign In</button>
                     <Link to='/'><h6>Back to login</h6></Link>                    

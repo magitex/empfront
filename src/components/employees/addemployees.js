@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from'axios';
 import { withRouter } from 'react-router-dom';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import ImageUploader from 'react-images-upload';
 
 class Addemployees extends Component {
     constructor(props){
@@ -17,10 +18,28 @@ class Addemployees extends Component {
                 zipcode:'',   
                 email:'',   
                 phone:'',   
-                gst:'',               
+                gst:'', 
+                picture:[]              
         }
         this.handleInput=this.handleInput.bind(this);
         this.addEmployee=this.addEmployee.bind(this);
+        this.onDrop = this.onDrop.bind(this);
+        this.uploadImage=this.uploadImage.bind(this);
+    }
+
+    onDrop(picture) {
+        this.setState({
+            picture: this.state.picture.concat(picture),
+        });
+    }
+
+    uploadImage(){
+
+        let uploadPromises = this.state.picture.map(image=>{
+            
+            
+            return console.log('image',image.name);
+        })
     }
 
     handleInput(e){
@@ -42,7 +61,7 @@ class Addemployees extends Component {
 
         axios.post('http://localhost:4000/employees/add',newEmployeeDetails)
         .then(response => console.log(response.data))
-        window.location=('/employeelist')
+        //window.location=('/employeelist')
         
         this.setState({
                 firstname:'',
@@ -63,7 +82,7 @@ class Addemployees extends Component {
         const {country,state}=this.state;
         return (
             <div className='container pt-1'>
-                <form onSubmit={this.addEmployee}>
+                <form onSubmit={this.addEmployee} >
                 <h3>New Employee</h3>
                     <div className="row mb-4">
                         <div className="col">
@@ -133,8 +152,18 @@ class Addemployees extends Component {
                         <label className="form-label" htmlFor="form6Example9">GST#</label>
                         <input id='gst' type="number" value={this.state.gst} name='gst' onChange={this.handleInput} className="form-control" required/>                         
                     </div>
+
+                    <ImageUploader
+                        withIcon={true}
+                        buttonText='Choose images'
+                        onChange={this.onDrop}
+                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                        maxFileSize={5242880}
+                        withPreview={true}
+                        singleImage={true}
+                    />
                                                 
-                    <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>
+                    <button type="submit" onClick={this.uploadImage} className="btn btn-primary btn-block mb-4">Add</button>
                 </form>
             </div>
         )
