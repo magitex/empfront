@@ -1,6 +1,7 @@
 import React,{useState,useEffect}  from 'react';
 import { withRouter } from 'react-router-dom';
 import Helper from '../helpers/networks';
+import Employees from '../employees/employees';
 import { useHistory } from 'react-router-dom';
 import { useParams } from "react-router";
 
@@ -49,6 +50,8 @@ function handleInput(e){
     setData(newdata)    
 }
 return (
+    <div>
+        <Employees />
         <div className='container pt-1'>
         <form method="post"  name='updateForm' id='formupdate' >
         <h3>Edit Employee</h3>
@@ -123,6 +126,7 @@ return (
                                         
             <button type="button" onClick={(e)=>handlesubmit(id)}  className="btn btn-primary btn-block mb-4 " >UPDATE</button>
         </form>
+        </div>
         </div>
     )
 }

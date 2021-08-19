@@ -48,7 +48,6 @@ const Network = {
                 email:employeeDetail.email,   
                 phone:employeeDetail.phone,   
                 gst:employeeDetail.gst,
-                picture:employeeDetail.picture,
             };
             axios({
                 url: serverUrl + config.updateEmployee+'/'+employeeid,

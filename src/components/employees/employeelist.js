@@ -1,6 +1,7 @@
 import React,{useState,useEffect }  from 'react';
 import Helper from '../helpers/networks';
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import Employees from '../employees/employees';
 import axios from 'axios';
 import Modal from 'react-modal';
 
@@ -9,6 +10,9 @@ Modal.setAppElement('#root')
 function Employeeslist(props) {
     const [openModal,setOpenModal] = useState(false)
     const[employeeslist,setEmployees] = useState([])
+   
+    const [deleteid,setdeleteid] = useState();
+    const [deletename,setdeletename] = useState();
 
     async function employeeList() {       
         let data;          
@@ -36,8 +40,10 @@ function Employeeslist(props) {
       props.history.push(`/editemployees/${id}`);
     }
     return (
+        <div>
+        <Employees />
             <div>
-                <table className="container table">
+                        <table className="container table">
                     <thead className='thead-light'>
                         <tr>
                             <th>#</th>
@@ -62,7 +68,7 @@ function Employeeslist(props) {
                             <td>{employee.gst}</td>
                             <td>
                               <button  onClick={()=>editEmployee(employee._id)}  className='btn bi bi-pencil'></button>                               
-                              <i onClick={()=>setOpenModal(true)} className='btn bi bi-trash'></i>
+                              <i onClick={()=>{setOpenModal(true);setdeleteid(employee._id);setdeletename(employee.firstname)}} className='btn bi bi-trash'></i>
                                 <Modal 
                                 isOpen={openModal} 
                                 onRequestClose={()=>setOpenModal(false)}
@@ -85,8 +91,8 @@ function Employeeslist(props) {
                                         }
                                     }
                                 }>
-                                    <h6>Are you sure you want to delete {employee.firstname}</h6> 
-                                    <button  type="button" className="btn btn-success mt-4" onClick={()=>{onDelete(employee._id);setOpenModal(false)}}>Yes</button>    
+                                    <h6>Are you sure you want to delete {deletename}</h6> 
+                                    <button  type="button" className="btn btn-success mt-4" onClick={()=>{onDelete(deleteid);setOpenModal(false)}}>Yes</button>    
                                     <button  type="button" className="btn btn-danger ms-2 mt-4" onClick={()=>setOpenModal(false)}>cancel</button>     
                                 </Modal>
                             </td>
@@ -94,6 +100,7 @@ function Employeeslist(props) {
                          ))}                                                                                                                                                                                
                     </tbody>
                 </table>    
+           </div>
            </div>
     )
 }

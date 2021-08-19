@@ -1,7 +1,9 @@
 import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
 import Homepage from '../homepage/homepage';
 import Customers from '../customers/customers';
-import Employees from '../employees/employees';
+import Addemployees from '../employees/addemployees';
+import Editemployees from '../employees/editemployees';
+import Employeeslist from '../employees/employeelist';
 import Projects from '../projects/projects';
 import Timesheet from '../timesheet/timesheet';
 import Login from '../login/login';
@@ -28,9 +30,11 @@ export default class Navbar extends Component {
           <Route path="/signin"> <Signin /></Route>
           <Route path="/home"> <Homepage /></Route>
           <Route path="/customerslist"><Customers /></Route>
-          <Route path="/employeelist"><Employees /></Route>        
           <Route path="/timesheet"><Timesheet /> </Route>
-          <Route path="/projectlist"><Projects /></Route>        
+          <Route path="/projectlist"><Projects /></Route> 
+          <Route path="/employeelist"><Employeeslist /></Route>       
+                <Route path="/addemployees"><Addemployees /></Route>
+                <Route path="/editemployees/:id"><Editemployees/></Route>         
         </Switch>
       </div>
     </Router>

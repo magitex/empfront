@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router,Link,Switch,Route,withRouter } from 'react-router-dom';
-import Addemployees from './addemployees';
-import Editemployees from './editemployees';
-import Employeeslist from './employeelist';
+import { Link,withRouter } from 'react-router-dom';
+
 
 class Employees extends Component {
     
     render() {
         return (
-            <Router>
             <div>
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="container-fluid">
@@ -28,12 +25,7 @@ class Employees extends Component {
                     </div>
                 </nav>
             </div>
-            <Switch>         
-                <Route path="/employeelist"><Employeeslist /></Route>       
-                <Route path="/addemployees"><Addemployees /></Route>
-                <Route path="/editemployees/:id"><Editemployees/></Route>        
-            </Switch>
-            </Router>
+            
 
         )
     }
