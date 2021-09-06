@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router,Link,Switch,Route,withRouter } from 'react-router-dom';
-import AddCustomers from "./addcustomers";
-import Editcustomer from './editcustomer';
-import Customerslist from './customerslist';
+import { Link,withRouter } from 'react-router-dom';
+
 
 class Customers extends Component {
     render() {
         return (
-            <Router>
+            
             <div>         
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="container-fluid">
@@ -26,14 +24,9 @@ class Customers extends Component {
                         </div>
                     </div>
                 </nav>                       
-            </div>
-            <Switch> 
-                <Route path="/customerslist"><Customerslist/></Route>                
-                <Route path="/addcustomer"><AddCustomers /></Route>        
-                <Route path="/editcustomer/:id"><Editcustomer/></Route>
-            </Switch>
+            </div>           
         
-            </Router>
+        
         )
     }
 }

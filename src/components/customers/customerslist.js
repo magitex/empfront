@@ -1,6 +1,7 @@
 import React,{useState,useEffect }  from 'react';
 import Helper from '../helpers/networks';
 import { withRouter} from 'react-router-dom';
+import Customers from '../customers/customers'
 import axios from 'axios';
 import Modal from 'react-modal';
 
@@ -37,6 +38,8 @@ function Customerslist(props) {
     }
     
     return (
+        <div>
+            <Customers/>
             <div>
                 <table className="container table">
                     <thead className='thead-light'>
@@ -95,6 +98,7 @@ function Customerslist(props) {
                          ))}                                                                                                                                                                                
                     </tbody>
                 </table>    
+           </div>
            </div>
     )
 }

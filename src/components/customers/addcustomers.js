@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from'axios';
 import { withRouter } from 'react-router-dom';
+import Customers from '../customers/customers';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 
-class addCustomers extends Component {
+class AddCustomers extends Component {
     constructor(props){
         super(props);
         this.state={           
@@ -66,6 +67,9 @@ class addCustomers extends Component {
     render() {
         const {country,state}=this.state;
         return (
+            <div>
+                <Customers/>
+            
             <div className='container pt-1'>
                 <form onSubmit={this.addCustomer}>
                 <h3>New Customer</h3>
@@ -141,8 +145,9 @@ class addCustomers extends Component {
                     <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>
                 </form>                
             </div>
+            </div>
         )
     }
 }
 
-export default withRouter(addCustomers);
+export default withRouter(AddCustomers);
