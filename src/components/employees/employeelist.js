@@ -4,13 +4,20 @@ import { withRouter } from 'react-router-dom';
 import Employees from '../employees/employees';
 import axios from 'axios';
 import Modal from 'react-modal';
+import Pdf from "react-to-pdf";
+
 
 Modal.setAppElement('#root')
 
 function Employeeslist(props) {
     const [openModal,setOpenModal] = useState(false)
     const[employeeslist,setEmployees] = useState([])
-   
+    const ref = React.createRef();
+    const options = {
+        orientation: 'landscape',
+        unit: 'in',
+        format: [10,5]
+    };
     const [deleteid,setdeleteid] = useState();
     const [deletename,setdeletename] = useState();
 
@@ -58,7 +65,7 @@ function Employeeslist(props) {
                     </thead>
                     <tbody>                                                            
                         {employeeslist && employeeslist.map((employee,key)=>(
-                        <tr key={key}>
+                        <tr key={key}  ref={ref}>
                             <td >{employee.id}</td>
                             <td>{employee.firstname}</td>
                             <td>{employee.lastname}</td>
@@ -67,6 +74,11 @@ function Employeeslist(props) {
                             <td>{employee.phone}</td>
                             <td>{employee.gst}</td>
                             <td>
+                            <Pdf targetRef={ref} filename="emp.pdf" options={options} x={.5} y={.5} scale={0.8}>
+        {({toPdf}) => (
+            <button onClick={toPdf}>Generate pdf</button>
+        )}
+    </Pdf>
                               <button  onClick={()=>editEmployee(employee._id)}  className='btn bi bi-pencil'></button>                               
                               <i onClick={()=>{setOpenModal(true);setdeleteid(employee._id);setdeletename(employee.firstname)}} className='btn bi bi-trash'></i>
                                 <Modal 
