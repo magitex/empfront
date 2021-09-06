@@ -18,6 +18,7 @@ class Addemployees extends Component {
                 zipcode:'',   
                 email:'',   
                 phone:'',
+                imageurl:'',
                 selectedFile:'',  
                 gst:'',               
         }
@@ -46,17 +47,33 @@ class Addemployees extends Component {
 
     addEmployee(e){
         e.preventDefault();
-        const newEmployeeDetails = this.state
-        console.log(newEmployeeDetails)
+       // console.log(newEmployeeDetails)
         //profile picture end point
   
         
-            const image = new FormData();// If file selected
-            if ( this.state.selectedFile ) {image.append( 'image', this.state.selectedFile, this.state.selectedFile.name );
-            axios.post( 'http://localhost:4000/profile/upload', image)
-            .then(response => console.log(response.data)) 
-            } 
-
+           // const image = new FormData();// If file selected
+           const formData = new FormData();
+           formData.append('myImag',this.state.selectedFile);
+           const config = {
+               headers: {
+                   'content-type': 'multipart/form-data'
+               }
+           };
+           // if ( this.state.selectedFile ) {image.append( 'image', this.state.selectedFile, this.state.selectedFile.name );
+            axios.post( 'http://localhost:4000/profile/upload', formData,config).then(
+                response => {
+                 const imageurl = response.data;                 
+                 console.log( 'imageurl', imageurl);
+               
+                 this.setState( {
+                imageurl: imageurl 
+                 })
+                });
+ 
+                 
+            //} 
+            const newEmployeeDetails = this.state;
+            console.log(newEmployeeDetails);
         //details end point
         axios.post('http://localhost:4000/employees/add',newEmployeeDetails)
         .then(response => console.log(response.data))        
