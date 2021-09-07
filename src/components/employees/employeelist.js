@@ -50,7 +50,7 @@ function Employeeslist(props) {
         <div>
         <Employees />
             <div>
-                        <table className="container table">
+                <table className="container table">
                     <thead className='thead-light'>
                         <tr>
                             <th>#</th>

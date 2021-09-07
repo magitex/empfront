@@ -12,6 +12,7 @@ import Login from '../login/login';
 import Signin from '../signin/signin';
 import { Component } from 'react';
 import './navbar.css'
+import Invoice from '../invoices/invoice';
 
 export default class Navbar extends Component {
   render(){
@@ -25,7 +26,8 @@ export default class Navbar extends Component {
             <Link to="/customerslist">Customers</Link>&nbsp;         
             <Link to="/employeelist">Employees</Link>&nbsp;
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
-            <Link to="/projectlist">Projects</Link>&nbsp;                    
+            <Link to="/projectlist">Projects</Link>&nbsp; 
+            <Link to="/invoice">Invoice</Link>&nbsp;                    
         </div>
         <Switch>
           <Route path="/" exact> <Login /></Route>
@@ -37,8 +39,9 @@ export default class Navbar extends Component {
           <Route path="/timesheet"><Timesheet /> </Route>
           <Route path="/projectlist"><Projects /></Route> 
           <Route path="/employeelist"><Employeeslist /></Route>       
-                <Route path="/addemployees"><Addemployees /></Route>
-                <Route path="/editemployees/:id"><Editemployees/></Route>         
+          <Route path="/addemployees"><Addemployees /></Route>
+          <Route path="/editemployees/:id"><Editemployees/></Route>  
+          <Route path="/invoice"><Invoice/></Route>       
         </Switch>
       </div>
     </Router>
