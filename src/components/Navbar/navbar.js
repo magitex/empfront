@@ -13,6 +13,7 @@ import Signin from '../signin/signin';
 import { Component } from 'react';
 import './navbar.css'
 import Invoice from '../invoices/invoice';
+import InvoicePdf from '../invoices/invoicePdf';
 
 export default class Navbar extends Component {
   render(){
@@ -27,7 +28,8 @@ export default class Navbar extends Component {
             <Link to="/employeelist">Employees</Link>&nbsp;
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
             <Link to="/projectlist">Projects</Link>&nbsp; 
-            <Link to="/invoice">Invoice</Link>&nbsp;                    
+            <Link to="/invoice">Invoice</Link>&nbsp;  
+            <Link to="/invoicepdf">InvoicePdf</Link>&nbsp;                    
         </div>
         <Switch>
           <Route path="/" exact> <Login /></Route>
@@ -42,6 +44,7 @@ export default class Navbar extends Component {
           <Route path="/addemployees"><Addemployees /></Route>
           <Route path="/editemployees/:id"><Editemployees/></Route>  
           <Route path="/invoice"><Invoice/></Route>       
+          <Route path="/invoicepdf"><InvoicePdf/></Route>       
         </Switch>
       </div>
     </Router>

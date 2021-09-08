@@ -64,11 +64,12 @@ export default class Invoice extends Component {
         console.log('Pdf generated');
 
         var doc = new jsPDF('p','pt');
-       
-        doc.line(20, 20, 20, 20);
-        doc.text('Invoice', 40, 20, 'center');
-        doc.text(20,40,this.state.companyname);
-        doc.text(20,60,this.state.invoicedate);
+
+        doc.text(250,20,"INVOICE");
+        doc.text(20,40,"Company Name :");
+        doc.text(150,40,this.state.companyname);
+        doc.text(20,60,"Invoice Date :");
+        doc.text(150,60,this.state.invoicedate);
         doc.save("Invoice.pdf");
     }
 
