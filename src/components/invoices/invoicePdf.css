@@ -1,0 +1,86 @@
+.container-fluid{
+    padding: 5rem 20rem 10rem 20rem;
+}
+.header{
+    margin-bottom: 30px;
+}
+
+hr:not([size]){
+    height: 6px;
+}
+
+.invoice{
+    text-align: center;
+    border-style: solid;
+    border-width: thin;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    padding: 8px;
+}
+
+.table1{
+    border-style: solid;
+    border-width: thin;
+}
+.table2{
+    border-style: solid none;
+    border-width: thin;
+}
+
+.invoice_no{
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-bottom: 35px;
+}
+
+table {
+    border:1px solid black;
+    width: 100%;
+  }
+
+  th,td{
+    border:1px solid black;
+  }
+
+  .gst{
+      border: none;
+  }
+
+  .ponumber{
+      width: 50%;
+    border-right: solid;
+    border-width: thin;
+  
+  }
+  .innumber{
+      width: 50%;
+  }
+  .pocontent1{
+    border-bottom: solid;
+    border-width: thin;
+    padding-top: 5px;
+    padding-bottom: 40px;
+    padding-left: 10px;
+  }
+  .pocontent2{
+      padding: 5px 10px;
+  }
+  .bankdetail{
+    border-right: solid;
+    border-bottom: solid;
+    border-width: thin;
+    padding: 5px 10px;
+  }
+  .payment{
+      width: 50%;
+      border-bottom: solid;
+      border-width: thin;
+      padding: 5px 10px;
+  }
+
+  .thank{
+      color: coral;
+      text-align: center;
+      padding: 10px;
+  }
