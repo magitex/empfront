@@ -12,4 +12,7 @@ module.exports = {
     projectData:'projects',
     projectDetail:'projects',
     updateProject:'projects/update',
+
+    invoiceData: 'invoice',
+    
 };
