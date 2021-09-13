@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './invoicePdf.css';
+import ReactToPdf from 'react-to-pdf';
 
-export default function InvoicePdf() {
-    return (
-        <div className="container-fluid ">
+const ref = React.createRef();
+const options = {
+    orientation: 'landscape',
+    unit: 'in',
+    format: [40,20]
+};
+
+export default class InvoicePdf extends Component {
+    
+    render() {
+        return (
+            <div className="container-fluid  "  ref={ref}>
             <div className='table1'>
             <div className="d-flex justify-content-between header">
                 <div>logo</div>
@@ -35,8 +45,7 @@ export default function InvoicePdf() {
                     <h5>Invoice No: JFI-270721-04</h5>
                     <h5>Invoice Date: 27th July, 2021</h5>
                     <h5>Bill To: Pratap Health and Foods (India) Pvt. Ltd.</h5>
-                    <h5>Address: 8-2-573, Road No 7, Banjara Hills, Hyderabad,
-Telangana 500034.</h5>
+                    <h5>Address: 8-2-573, Road No 7, Banjara Hills, Hyderabad,Telangana 500034.</h5>
                     <h5>GSTIN: 36AACCP0735G1ZO</h5>
                     </div>
                 </div>               
@@ -92,7 +101,15 @@ Telangana 500034.</h5>
                 <h5>Sincerely,</h5>
                 <h5>Soujanya Venkatesh</h5>
                 <h5>(Director)</h5>
-            </div>    
+            </div> 
+            <div>
+    <ReactToPdf targetRef={ref} filename="div-blue.pdf" options={options} >
+        {({toPdf}) => (
+            <button onClick={toPdf}>Generate pdf</button>
+        )}
+    </ReactToPdf>
+</div>
         </div>
-    )
+        )
+    }
 }

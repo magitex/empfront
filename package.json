@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@react-pdf/renderer": "^2.0.19",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -13,6 +14,7 @@
     "bootstrap-icons": "^1.5.0",
     "country-state-city": "^3.0.1",
     "jquery": "^3.6.0",
+    "jspdf-react": "^1.0.11",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-country-region-selector": "^3.2.0",

@@ -7,6 +7,7 @@ import './invoice.css';
 import axios from 'axios';
 import Invoice from '../invoices/invoice';
 
+
 export default class Addinvoice extends Component {
     
     constructor(props){
@@ -172,6 +173,7 @@ export default class Addinvoice extends Component {
                     </div>
                 </div>                                                              
                     <button type="button" onClick={(event) => { this.submitInvoice(event);this.generatePdf(event)}} className="btn btn-primary btn-block mb-4">Submit</button>              
+                 
                 </form>                
             </div>
 </div>

@@ -43,9 +43,9 @@ function Invoicelist(props) {
             
     };
 
-    function editEmployee(id){
-      props.history.push(`/editemployees/${id}`);
-    }
+    // function editEmployee(id){
+    //   props.history.push(`/editemployees/${id}`);
+    // }
     return (
         <div>
         <Invoice />

@@ -12,14 +12,13 @@ import Login from '../login/login';
 import Signin from '../signin/signin';
 import { Component } from 'react';
 import './navbar.css'
-<<<<<<< HEAD
 import Invoicelist from '../invoices/invoicelist';
 import Addinvoice from '../invoices/addinvoice';
-=======
 import Invoice from '../invoices/invoice';
 import InvoicePdf from '../invoices/invoicePdf';
 
->>>>>>> a314023737bd955cb8d4e4942704ceeeaba6a662
+
+
 export default class Navbar extends Component {
   render(){
   return (
@@ -33,12 +32,8 @@ export default class Navbar extends Component {
             <Link to="/employeelist">Employees</Link>&nbsp;
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
             <Link to="/projectlist">Projects</Link>&nbsp; 
-<<<<<<< HEAD
-            <Link to="/invoicelist">Invoice</Link>&nbsp;                    
-=======
-            <Link to="/invoice">Invoice</Link>&nbsp;  
+            <Link to="/invoicelist">Invoice</Link>&nbsp;                           
             <Link to="/invoicepdf">InvoicePdf</Link>&nbsp;                    
->>>>>>> a314023737bd955cb8d4e4942704ceeeaba6a662
         </div>
         <Switch>
           <Route path="/" exact> <Login /></Route>
@@ -52,14 +47,12 @@ export default class Navbar extends Component {
           <Route path="/employeelist"><Employeeslist /></Route>       
           <Route path="/addemployees"><Addemployees /></Route>
           <Route path="/editemployees/:id"><Editemployees/></Route>  
-<<<<<<< HEAD
           <Route path="/invoicelist"><Invoicelist/></Route> 
-          <Route path="/addinvoice"><Addinvoice/></Route>       
+          <Route path="/addinvoice"><Addinvoice/></Route>   
+            
 
-=======
           <Route path="/invoice"><Invoice/></Route>       
           <Route path="/invoicepdf"><InvoicePdf/></Route>       
->>>>>>> a314023737bd955cb8d4e4942704ceeeaba6a662
         </Switch>
       </div>
     </Router>
