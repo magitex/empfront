@@ -23,14 +23,12 @@ function Customerslist(props) {
     },[])
     
     function onDelete(id){
-        console.log(id)
-        
-            axios.delete('http://localhost:4000/customers/'+id) 
-            .then(res=>{
-                    console.log(res.data)   
-                    customerList();         
-                });
-            
+    console.log(id)    
+    axios.delete('http://localhost:4000/customers/'+id) 
+    .then(res=>{
+            console.log(res.data)   
+            customerList();         
+        });    
     };
 
     function editCustomer(id){

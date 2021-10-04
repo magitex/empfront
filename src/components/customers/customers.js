@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Link,withRouter } from 'react-router-dom';
 
-
 class Customers extends Component {
     render() {
-        return (
-            
+        return (       
             <div>         
                <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div>
@@ -24,9 +22,7 @@ class Customers extends Component {
                         </div>
                     </div>
                 </nav>                       
-            </div>           
-        
-        
+            </div>              
         )
     }
 }

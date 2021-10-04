@@ -2,7 +2,7 @@ import React from "react";
 import TaskList from "./invoiceDetails";
 import Invoice from '../invoices/invoice';
 //import axios from 'axios';
-class Form extends React.Component {
+class Addinvoice extends React.Component {
     state = {
         invoiceDetails: [{index: Math.random(), description: "", totalhours: "", hourlyrate: "", totalamount: "" }],
         companyname:"",
@@ -12,7 +12,6 @@ class Form extends React.Component {
         ponumber:"",
         customers:[],      
     }
-
     componentWillMount() {
         fetch('http://localhost:4000/customers')
         .then(data=>{  
@@ -21,7 +20,6 @@ class Form extends React.Component {
             this.setState({customers : data});      
         })
     }
-  
     handleChange = (e) => {
         if (["description", "totalhours", "hourlyrate", "totalamount"].includes(e.target.name)) {
             let invoiceDetails = [...this.state.invoiceDetails]
@@ -35,42 +33,15 @@ class Form extends React.Component {
             invoiceDetails: [...prevState.invoiceDetails, {index: Math.random(), description: "", totalhours: "", hourlyrate: "", totalamount: "" }],
         }));
     }
-
-
     deteteRow = (index) => {
         this.setState({
             invoiceDetails: this.state.invoiceDetails.filter((s, sindex) => index !== sindex),
-        });
-        // const taskList1 = [...this.state.taskList];
-        // taskList1.splice(index, 1);
-        // this.setState({ taskList: taskList1 });
+        });        
     }
     handleSubmit = (e) => {
-        e.preventDefault();
-        // if(this.state.date==='' || this.state.description==='')
-        // {
-        //     NotificationManager.warning("Please Fill up form-label Field . Please check Task and Date Field");
-        //     return false;
-        // }
-        // for(var i=0;i<this.state.taskList.length;i++)
-        // {
-        //         if(this.state.taskList[i].projectName==='' || this.state.taskList[i].task==='')
-        //         {
-        //             NotificationManager.warning("Please Fill up form-label Field.Please Check Project name And Task Field");
-        //             return false;
-        //         }
-        // }
+        e.preventDefault();        
          let data = { formData: this.state}
-         console.log(data);
-        // axios.defaults.headers.common["Authorization"] = localStorage.getItem('token');
-        // axios.post("http://localhost:9000/api/task", data).then(res => {
-        //     if(res.data.success) NotificationManager.success(res.data.msg);
-        // }).catch(error => {
-        //     if(error.response.status && error.response.status===400)
-        //     NotificationManager.error("Bad Request");
-        //     else NotificationManager.error("Something Went Wrong");
-        //     this.setState({ errors: error })
-        // });
+         console.log(data);        
     }
     clickOnDelete(record) {
         this.setState({
@@ -78,7 +49,7 @@ class Form extends React.Component {
         });
     }
     render() {
-        let { invoiceDetails } = this.state//let { notes, date, description, taskList } = this.state
+        let { invoiceDetails } = this.state
         return (
             <div>
                  <Invoice/>
@@ -97,7 +68,7 @@ class Form extends React.Component {
                                                 <select name="companyname" id="companyname"  onChange={this.handleChange} className="form-select" aria-label="Default select example">
                                                     {this.state.customers.map(customer => (
                                                     <option key={customer.firstname} value={customer.firstname} name='companyname' >
-                                                        {customer.firstname}
+                                                        {customer.firstname} {customer.lastname}
                                                     </option>
                                                     ))}
                                                 </select>
@@ -158,4 +129,4 @@ class Form extends React.Component {
         )
     }
 }
-export default Form
+export default Addinvoice

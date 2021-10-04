@@ -25,7 +25,8 @@ function Employeeslist(props) {
         let data;          
         data= await Helper.employeeData();
         const tempemployees =data && data.data; 
-        setEmployees(tempemployees); 
+        setEmployees(tempemployees);
+        console.log(data);
     }
     
     useEffect(()=>{ 

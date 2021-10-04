@@ -15,6 +15,7 @@ import './navbar.css'
 import Invoicelist from '../invoices/invoicelist';
 import Addinvoice from '../invoices/addinvoice';
 import Invoice from '../invoices/invoice';
+import Addinvoiceold from '../invoices/addinvoiceold';
 
 
 
@@ -34,6 +35,7 @@ export default class Navbar extends Component {
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
             <Link to="/projectlist">Projects</Link>&nbsp; 
             <Link to="/invoicelist">Invoice</Link>&nbsp;     
+            <Link to="/addinvoiceold">Invoiceold</Link>&nbsp;     
                                
                          
         </div>
@@ -51,6 +53,7 @@ export default class Navbar extends Component {
           <Route path="/editemployees/:id"><Editemployees/></Route>  
           <Route path="/invoicelist"><Invoicelist/></Route> 
           <Route path="/addinvoice"><Addinvoice/></Route>   
+          <Route path="/addinvoiceold"><Addinvoiceold/></Route>   
           
 
           <Route path="/invoice"><Invoice/></Route>       

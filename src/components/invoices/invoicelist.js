@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Invoice from '../invoices/invoice';
 import axios from 'axios';
 import Modal from 'react-modal';
-import Pdf from "react-to-pdf";
+//import Pdf from "react-to-pdf";
 
 
 Modal.setAppElement('#root')
@@ -13,11 +13,7 @@ function Invoicelist(props) {
     const [openModal,setOpenModal] = useState(false)
     const[invoicelist,setinvoice] = useState([])
     const ref = React.createRef();
-    const options = {
-        orientation: 'landscape',
-        unit: 'in',
-        format: [10,5]
-    };
+ 
     const [deleteid,setdeleteid] = useState();
     const [deletename,setdeletename] = useState();
 
@@ -26,6 +22,7 @@ function Invoicelist(props) {
         data= await Helper.invoiceData();
         const tempeminvoice =data && data.data; 
         setinvoice(tempeminvoice); 
+        console.log(data);
     }
     
     useEffect(()=>{ 
@@ -43,9 +40,7 @@ function Invoicelist(props) {
             
     };
 
-    // function editEmployee(id){
-    //   props.history.push(`/editemployees/${id}`);
-    // }
+   
     return (
         <div>
         <Invoice />
@@ -78,11 +73,9 @@ function Invoicelist(props) {
                             <td>{invoice.invoicedate}</td>
                             <td>{invoice.podate}</td>
                             <td>
-                            <Pdf targetRef={ref} filename="emp.pdf" options={options} x={.5} y={.5} scale={0.8}>
-        {({toPdf}) => (
-            <button onClick={toPdf}>Generate pdf</button>
-        )}
-    </Pdf>
+                           
+             <a href={invoice.invoiceurl} target="_blank" rel="noreferrer">Invoice Link</a>
+      
                                                             
                               <i onClick={()=>{setOpenModal(true);setdeleteid(invoice._id);setdeletename(invoice.firstname)}} className='btn bi bi-trash'></i>
                                 <Modal 

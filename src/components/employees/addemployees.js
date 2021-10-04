@@ -43,23 +43,16 @@ class Addemployees extends Component {
         this.setState({ selectedFile: event.target.files[0] })
     }
 
-
-
     addEmployee(e){
-        e.preventDefault();
-       // console.log(newEmployeeDetails)
-        //profile picture end point
-  
-        
-           // const image = new FormData();// If file selected
-           const formData = new FormData();
-           formData.append('myImag',this.state.selectedFile);
-           const config = {
-               headers: {
-                   'content-type': 'multipart/form-data'
-               }
-           };
-           // if ( this.state.selectedFile ) {image.append( 'image', this.state.selectedFile, this.state.selectedFile.name );
+    e.preventDefault();
+        const formData = new FormData();
+        formData.append('myImag',this.state.selectedFile);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+    };
+           
             axios.post( 'http://localhost:4000/profile/upload', formData,config).then(
                 response => {
                  const imageurl = response.data;                 
@@ -71,13 +64,13 @@ class Addemployees extends Component {
                 });
  
                  
-            //} 
+    
             const newEmployeeDetails = this.state;
             console.log(newEmployeeDetails);
-        //details end point
+   
         axios.post('http://localhost:4000/employees/add',newEmployeeDetails)
         .then(response => console.log(response.data))        
-        //window.location=('/employeelist')
+    
         
         this.setState({
                 firstname:'',
@@ -89,7 +82,9 @@ class Addemployees extends Component {
                 country:'',   
                 zipcode:'',   
                 email:'',   
-                phone:'',   
+                phone:'', 
+                imageurl:'',
+                selectedFile:'',    
                 gst:'',
         })               
     }

@@ -41,7 +41,6 @@ async function handlesubmit(id){
     
 }
      
-
 useEffect(()=>{ 
     getCustomer(id);
 },[id])
@@ -52,7 +51,6 @@ function handleInput(e){
     setData(newdata)    
 }
 
-   
         return (
             <div className='container pt-1'>
                 <form method="post"  name='updateForm' id='formupdate'>
@@ -70,18 +68,15 @@ function handleInput(e){
                             <input id='lastname' type="text" value={data.lastname} name='lastname' onChange={(e)=>handleInput(e)} className="form-control" required/>                                                      
                         </div>
                         </div>
-                    </div>
-                    
+                    </div>                   
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example3">Address Line 1</label>
                         <input id='address1' type="text" value={data.address1} name='address1' onChange={(e)=>handleInput(e)} className="form-control" required/>                                               
-                    </div>
-         
+                    </div>        
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example4">Address Line 2</label>
                         <input id='address2' type="text" value={data.address2} name='address2' onChange={(e)=>handleInput(e)} className="form-control" required/>                         
                     </div>
-
                     <div className="row mb-4">
                         <div className="col">
                         <div className="form-outline">
@@ -109,23 +104,19 @@ function handleInput(e){
                             <input id='zipcode' type="number" value={data.zipcode} name='zipcode' onChange={(e)=>handleInput(e)}  className="form-control" required/>                                                       
                         </div>
                         </div>
-                    </div>
-            
+                    </div>           
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example8">Email</label>
                         <input id='email' type="email" value={data.email} name='email' onChange={(e)=>handleInput(e)} className="form-control" required/>                        
                     </div>
-
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example9">Phone</label>
                         <input id='phone' type="number" value={data.phone} name='phone' onChange={(e)=>handleInput(e)} className="form-control" required/>                        
                     </div>
-
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example9">GST#</label>
                         <input id='gst' type="number" value={data.gst} name='gst' onChange={(e)=>handleInput(e)} className="form-control" required/>                         
-                    </div>
-                                                
+                    </div>                                               
                     <button type="button" onClick={(e)=>handlesubmit(id)} className="btn btn-primary btn-block mb-4">UPDATE</button>
                 </form>
             </div>

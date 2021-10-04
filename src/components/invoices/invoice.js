@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Link,withRouter } from 'react-router-dom';
 
-
 class Invoice extends Component {
-    
     render() {
         return (
             <div>
@@ -25,8 +23,6 @@ class Invoice extends Component {
                     </div>
                 </nav>
             </div>
-            
-
         )
     }
 }
