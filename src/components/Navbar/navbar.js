@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Link,Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Link,Switch,Route, useHistory } from 'react-router-dom';
 import Homepage from '../homepage/homepage';
 import Addemployees from '../employees/addemployees';
 import Editemployees from '../employees/editemployees';
@@ -16,44 +16,72 @@ import Invoicelist from '../invoices/invoicelist';
 import Addinvoice from '../invoices/addinvoice';
 import Invoice from '../invoices/invoice';
 import Addinvoiceold from '../invoices/addinvoiceold';
+import { useAuth } from "../../contexts/useAuth"
+import PrivateRoute from "../../PrivateRoute";
 
 
+export default function Navbar()  {
+  const { currentUser,logout } = useAuth()
+  const history = useHistory()
 
+  async function handlelogout() {
+   
 
+    try {     
+      await logout()
+      history.push("/")
+    } catch {
+      //setError("Failed to log out")
+    }
 
-export default class Navbar extends Component {
-  render(){
+   
+  }
+
+ 
   return (
 
     <Router>
       <div>        
         <div className='navbars'>
-            <Link to="/">Login</Link>&nbsp;
-            <Link to="/home">Home</Link> &nbsp;         
+          {!currentUser && (
+            <>
+         
+          </>
+          )
+          }
+           {currentUser && (
+            <>
+          <a  onClick={handlelogout}>Logout</a>&nbsp;
+          <Link to="/home">Home</Link> &nbsp;         
             <Link to="/customerslist">Customers</Link>&nbsp;         
             <Link to="/employeelist">Employees</Link>&nbsp;
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
             <Link to="/projectlist">Projects</Link>&nbsp; 
             <Link to="/invoicelist">Invoice</Link>&nbsp;     
-            <Link to="/addinvoiceold">Invoiceold</Link>&nbsp;     
+            <Link to="/addinvoiceold">Invoiceold</Link>&nbsp;  
+          </>
+          )
+          }
+           
+              
                                
                          
         </div>
         <Switch>
+         <PrivateRoute  exact  path="/home" component={Homepage} />
           <Route path="/" exact> <Login /></Route>
           <Route path="/signin"> <Signin /></Route>
-          <Route path="/home"> <Homepage /></Route>          
-          <Route path="/addcustomer"><AddCustomers /></Route> 
-          <Route path="/editcustomer/:id"><Editcustomer/></Route>
-          <Route path="/customerslist"><Customerslist/></Route>                       
-          <Route path="/timesheet"><Timesheet /> </Route>
-          <Route path="/projectlist"><Projects /></Route> 
-          <Route path="/employeelist"><Employeeslist /></Route>       
-          <Route path="/addemployees"><Addemployees /></Route>
-          <Route path="/editemployees/:id"><Editemployees/></Route>  
-          <Route path="/invoicelist"><Invoicelist/></Route> 
-          <Route path="/addinvoice"><Addinvoice/></Route>   
-          <Route path="/addinvoiceold"><Addinvoiceold/></Route>   
+          <PrivateRoute exact  path="/addcustomer"  component={AddCustomers} />
+          <PrivateRoute exact path="/editcustomer/:id" component={Editcustomer} />
+          <PrivateRoute exact path="/customerslist" component={Customerslist}  />                       
+          <PrivateRoute exact path="/timesheet" component={Timesheet} />
+          <PrivateRoute exact path="/projectlist" component={Projects} />
+          <PrivateRoute exact path="/employeelist" component={Employeeslist} />       
+          <PrivateRoute exact path="/addemployees" component={Addemployees} />
+          <PrivateRoute exact path="/editemployees/:id" component={Editemployees} /> 
+          <PrivateRoute exact path="/invoicelist" component={Invoicelist} /> 
+          <PrivateRoute exact  path="/addinvoice" component={Addinvoice} />  
+          <PrivateRoute exact path="/addinvoiceold" component={Addinvoiceold} /> 
           
 
           <Route path="/invoice"><Invoice/></Route>       
@@ -63,7 +91,7 @@ export default class Navbar extends Component {
     </Router>
 
   );
-}
+
 }
 
 

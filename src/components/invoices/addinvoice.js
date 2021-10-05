@@ -1,6 +1,8 @@
 import React from "react";
 import TaskList from "./invoiceDetails";
 import Invoice from '../invoices/invoice';
+import axios from 'axios';
+
 //import axios from 'axios';
 class Addinvoice extends React.Component {
     state = {
@@ -10,7 +12,8 @@ class Addinvoice extends React.Component {
         podate:"", 
         invoicenumber:"",
         ponumber:"",
-        customers:[],      
+        customers:[],
+        compdtls:{},        
     }
     componentWillMount() {
         fetch('http://localhost:4000/customers')
@@ -24,7 +27,21 @@ class Addinvoice extends React.Component {
         if (["description", "totalhours", "hourlyrate", "totalamount"].includes(e.target.name)) {
             let invoiceDetails = [...this.state.invoiceDetails]
             invoiceDetails[e.target.dataset.id][e.target.name] = e.target.value;
-        } else {
+        } 
+        else if(e.target.name=='companyname')
+        {
+            axios.get('http://localhost:4000/customers/'+e.target.value) 
+            .then(res=>{
+                this.setState({compdtls : res.data});
+                this.setState({companyname : res.data._id});
+
+                    console.log('cusrt',res.data) ;  
+                    console.log('cusrt1',this.state.compdtls) ;  
+
+                          
+                });   
+        }
+        else {
             this.setState({ [e.target.name]: e.target.value })
         }
     }
@@ -40,8 +57,23 @@ class Addinvoice extends React.Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();        
-         let data = { formData: this.state}
-         console.log(data);        
+         let newinvDetails = this.state
+         axios.post('http://localhost:4000/invoice/add',newinvDetails)
+         .then(
+             response => {
+                 console.log(response.data._id);
+                 newinvDetails.id = response.data._id;
+                 console.log(newinvDetails);
+ 
+                 axios.post('http://localhost:4000/pdf/generateReportWeb',newinvDetails)
+                 .then(response => console.log(response.data));
+             
+             },
+             error => {
+              console.error(error);
+             }
+            );
+              
     }
     clickOnDelete(record) {
         this.setState({
@@ -67,7 +99,7 @@ class Addinvoice extends React.Component {
                                                 <label className="form-label">Company name</label>                    
                                                 <select name="companyname" id="companyname"  onChange={this.handleChange} className="form-select" aria-label="Default select example">
                                                     {this.state.customers.map(customer => (
-                                                    <option key={customer.firstname} value={customer.firstname} name='companyname' >
+                                                    <option key={customer._id} value={customer._id} name='companyname' >
                                                         {customer.firstname} {customer.lastname}
                                                     </option>
                                                     ))}
