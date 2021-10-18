@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../../contexts/useAuth"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import {  Alert } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import './login.css'
 
@@ -38,11 +38,11 @@ export default function Login() {
                     <label htmlFor="floatingInput">User Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input type="email" ref={emailRef} required  name='email' className="form-control" id="floatingInputmail" placeholder="name@example.com" required/>
+                    <input type="email" ref={emailRef} name='email' className="form-control" id="floatingInputmail" placeholder="name@example.com" required/>
                     <label htmlFor="floatingInput">Email address</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input type="password" ref={passwordRef} required  name='password'  className="form-control" id="floatingPassword" placeholder="Password" required/>
+                    <input type="password" ref={passwordRef}  name='password'  className="form-control" id="floatingPassword" placeholder="Password" required/>
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className='d-flex justify-content-start'>
