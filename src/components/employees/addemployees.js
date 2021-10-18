@@ -19,6 +19,8 @@ class Addemployees extends Component {
                 email:'',   
                 phone:'',
                 imageurl:'',
+                pan:'',
+                aadhar:'',
                 selectedFile:'',  
                 gst:'',               
         }
@@ -83,6 +85,8 @@ class Addemployees extends Component {
                 zipcode:'',   
                 email:'',   
                 phone:'', 
+                aadhar:'', 
+                pan:'', 
                 imageurl:'',
                 selectedFile:'',    
                 gst:'',
@@ -112,7 +116,10 @@ class Addemployees extends Component {
                         </div>
                         </div>
                     </div>
-                    
+                    <div className="form-outline mb-4">
+                        <label className="form-label" htmlFor="form6Example9">Profile Image</label>
+                        <input type="file" onChange={this.fileChangedHandler} id="img" name="img" accept="image/*"/>                      
+                    </div>
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="form6Example3">Address Line 1</label>
                         <input id='address1' type="text" value={this.state.address1} name='address1' onChange={this.handleInput} className="form-control" required/>                                               
@@ -166,10 +173,21 @@ class Addemployees extends Component {
                         <label className="form-label" htmlFor="form6Example9">GST#</label>
                         <input id='gst' type="number" value={this.state.gst} name='gst' onChange={this.handleInput} className="form-control" required/>                         
                     </div>
-                    <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="form6Example9">Image</label>
-                        <input type="file" onChange={this.fileChangedHandler} id="img" name="img" accept="image/*"/>                      
+                    <div className="row mb-4">
+                        <div className="col">
+                        <div className="form-outline">
+                            <label className="form-label" htmlFor="form6Exampleaadhar">Aandhar Number</label>
+                            <input id='aadhar' type="text" value={this.state.aadhar} name='aadhar' onChange={this.handleInput} className="form-control" required/>                                                        
+                        </div>
+                        </div>
+                        <div className="col">
+                        <div className="form-outline">
+                            <label className="form-label" htmlFor="form6Examplepan">Pan Number</label>
+                            <input id='pan' type="text" value={this.state.pan} name='pan' onChange={this.handleInput} className="form-control" required/>                                                      
+                        </div>
+                        </div>
                     </div>
+                   
                                
                                                 
                     <button type="submit" className="btn btn-primary btn-block mb-4">Add</button>

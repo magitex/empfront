@@ -17,7 +17,9 @@ const[data,setData] = useState({
                 city:'', 
                 state:'',  
                 country:'',   
-                zipcode:'',   
+                zipcode:'', 
+                aadhar:'', 
+                pan:'', 
                 email:'',   
                 phone:'',   
                 gst:'',
@@ -118,7 +120,20 @@ return (
                 <label className="form-label" htmlFor="form6Example9">Phone</label>
                 <input id='phone' type="number" value={data.phone} name='phone' onChange={(e)=>handleInput(e)} className="form-control" required/>                        
             </div>
-
+            <div className="row mb-4">
+                        <div className="col">
+                        <div className="form-outline">
+                            <label className="form-label" htmlFor="form6Exampleaadhar">Aandhar Number</label>
+                            <input id='aadhar' type="text" value={this.state.aadhar} name='aadhar' onChange={this.handleInput} className="form-control" required/>                                                        
+                        </div>
+                        </div>
+                        <div className="col">
+                        <div className="form-outline">
+                            <label className="form-label" htmlFor="form6Examplepan">Pan Number</label>
+                            <input id='pan' type="text" value={this.state.pan} name='pan' onChange={this.handleInput} className="form-control" required/>                                                      
+                        </div>
+                        </div>
+                    </div>
             <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="form6Example9">GST#</label>
                 <input id='gst' type="number" value={data.gst} name='gst' onChange={(e)=>handleInput(e)} className="form-control" required/>                         

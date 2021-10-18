@@ -14,5 +14,7 @@ module.exports = {
     updateProject:'projects/update',
 
     invoiceData: 'invoice',
+    offerletterData: 'offerletter',
+
     
 };

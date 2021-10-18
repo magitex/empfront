@@ -13,6 +13,8 @@ import Signin from '../signin/signin';
 import { Component } from 'react';
 import './navbar.css'
 import Invoicelist from '../invoices/invoicelist';
+import Offerletterlistlist from '../offerletter/offerletterlist';
+
 import Addinvoice from '../invoices/addinvoice';
 import Invoice from '../invoices/invoice';
 import Addinvoiceold from '../invoices/addinvoiceold';
@@ -51,14 +53,15 @@ export default function Navbar()  {
           }
            {currentUser && (
             <>
-          <a  onClick={handlelogout}>Logout</a>&nbsp;
-          <Link to="/home">Home</Link> &nbsp;         
+          <Link to="/home">Dashboard</Link> &nbsp;         
             <Link to="/customerslist">Customers</Link>&nbsp;         
             <Link to="/employeelist">Employees</Link>&nbsp;
             <Link to="/timesheet">Time Sheet</Link>&nbsp;
             <Link to="/projectlist">Projects</Link>&nbsp; 
-            <Link to="/invoicelist">Invoice</Link>&nbsp;     
-            <Link to="/addinvoiceold">Invoiceold</Link>&nbsp;  
+            <Link to="/invoicelist">Invoice</Link>&nbsp; 
+            <Link to="/offerletterlist">Offerletter</Link>&nbsp;  
+            <a  onClick={handlelogout}>Logout</a>&nbsp;
+ 
           </>
           )
           }
@@ -80,6 +83,8 @@ export default function Navbar()  {
           <PrivateRoute exact path="/addemployees" component={Addemployees} />
           <PrivateRoute exact path="/editemployees/:id" component={Editemployees} /> 
           <PrivateRoute exact path="/invoicelist" component={Invoicelist} /> 
+          <PrivateRoute exact path="/offerletterlist" component={Offerletterlistlist} /> 
+
           <PrivateRoute exact  path="/addinvoice" component={Addinvoice} />  
           <PrivateRoute exact path="/addinvoiceold" component={Addinvoiceold} /> 
           

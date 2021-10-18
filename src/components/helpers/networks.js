@@ -104,6 +104,20 @@ const Network = {
                 .catch((err) => reject(err));
         });
     },
+    offerletterData: async () => {
+        return new Promise((resolve, reject) => {
+        
+            axios({
+                url: serverUrl + config.offerletterData,
+                method: 'get',
+              
+            })
+                .then((data) => {
+                    resolve(data);
+                })
+                .catch((err) => reject(err));
+        });
+    },
     customerData: async () => {
         return new Promise((resolve, reject) => {
         
