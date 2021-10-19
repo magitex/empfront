@@ -1,5 +1,45 @@
-.main{
-    text-align: center;
-    padding-top: 15%;
-    color: red;
+.page-title-box .page-title-right{
+    float: right;
+    margin-top: 20px;
 }
+
+.page-title-box .page-title{
+    font-size: 18px;
+    margin: 0;
+    line-height: 75px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+
+.page-title-box{
+    padding: 0px 50px;
+}
+.widget-flat{
+    position: relative;
+    overflow: hidden;
+}
+.col-lg-6{
+    padding-left: 35px;
+}
+.card{
+    border: none;
+    -webkit-box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+    box-shadow: 0 0 35px 0 rgb(154 161 171 / 15%);
+    margin-bottom: 24px;
+}
+.card-body{
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem;
+}
+.text-muted{
+    color: #98a6ad!important;
+}
+.fw-normal{
+    font-weight: 400!important;
+}
+.header-title{
+    font-size: 22px;
+}
+

@@ -28,7 +28,7 @@ class Addinvoice extends React.Component {
             let invoiceDetails = [...this.state.invoiceDetails]
             invoiceDetails[e.target.dataset.id][e.target.name] = e.target.value;
         } 
-        else if(e.target.name=='companyname')
+        else if(e.target.name==='companyname')
         {
             axios.get('http://localhost:4000/customers/'+e.target.value) 
             .then(res=>{

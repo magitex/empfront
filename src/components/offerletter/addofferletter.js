@@ -23,7 +23,7 @@ class Addofferletter extends React.Component {
     }
     handleChange = (e) => {
        
-         if(e.target.name=='employeename')
+         if(e.target.name==='employeename')
         {
             axios.get('http://localhost:4000/employees/'+e.target.value) 
             .then(res=>{
@@ -156,4 +156,4 @@ class Addofferletter extends React.Component {
         )
     }
 }
-export default Addinvoice
+export default Addofferletter

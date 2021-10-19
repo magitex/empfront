@@ -10,7 +10,6 @@ import Projects from '../projects/projects';
 import Timesheet from '../timesheet/timesheet';
 import Login from '../login/login';
 import Signin from '../signin/signin';
-import { Component } from 'react';
 import './navbar.css'
 import Invoicelist from '../invoices/invoicelist';
 import Offerletterlistlist from '../offerletter/offerletterlist';
@@ -52,7 +51,12 @@ export default function Navbar()  {
           )
           }
            {currentUser && (
-            <>
+            <div className="navbars navbar-expand-lg navbar-light bg-light">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarText">
+      <div className="navbar-nav me-auto mb-2 mb-lg-0">
           <Link to="/home">Dashboard</Link> &nbsp;         
             <Link to="/customerslist">Customers</Link>&nbsp;         
             <Link to="/employeelist">Employees</Link>&nbsp;
@@ -60,9 +64,10 @@ export default function Navbar()  {
             <Link to="/projectlist">Projects</Link>&nbsp; 
             <Link to="/invoicelist">Invoice</Link>&nbsp; 
             <Link to="/offerletterlist">Offerletter</Link>&nbsp;  
-            <a  onClick={handlelogout}>Logout</a>&nbsp;
- 
-          </>
+            <a href="/" onClick={handlelogout}>Logout</a>&nbsp;
+            </div>
+ </div>
+          </div>
           )
           }
            
