@@ -13,7 +13,6 @@ import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
 
 
-let activities = [];
 
 export default function Homepage() { 
     
