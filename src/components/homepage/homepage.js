@@ -1,4 +1,4 @@
-import React,{useState, useMemo,useEffect } from 'react';
+import React,{useState, useMemo, useEffect } from 'react';
 import './homepage.css';
 import { useAuth } from "../../contexts/useAuth";
 //import { Pie,Bar } from 'react-chartjs-2';
@@ -17,12 +17,14 @@ import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
 
+
+
+
 export default function Homepage() { 
     const[value,setValue] = useState({
         selectedValue:''        
 })
-
-  const[invoicelist,setinvoice] = useState([])
+const[invoicelist,setinvoice] = useState([])
   async function invoiceList() {       
       let data;          
       data= await Helper.invoiceData();
@@ -38,33 +40,64 @@ export default function Homepage() {
     var datum = Date.parse(strDate);
     return datum/1000;
  }
+ let activities = [];
+ invoicelist.map((invoice,key)=>(
+ //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+    activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
 
-  let activities = [];
-  invoicelist.map((invoice,key)=>(
-  //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
-     activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
-
-      ));
-    //   let activities = 
-    //     [
-    //         [946702800000, 261],
-    //         [949381200000, 251],
-    //         [951886800000, 282],
-    //         [954565200000, 289],
-    //         [957153600000, 259]
+     ));
+      const getData = () => [
+        [946702800000, 261],
+        [949381200000, 251],
+        [951886800000, 282],
+        [954565200000, 289],
+        [957153600000, 259],
+        [959832000000, 259],
+        [962424000000, 256],
+        [965102400000, 264],
+        [967780800000, 289],
+        [970372800000, 291],
+        [973054800000, 254],
+        [975646800000, 275],
+        [978325200000, 250],
+        [981003600000, 254],
+        [983422800000, 227],
+        [986101200000, 262],
+        [988689600000, 248],
+        [991368000000, 237],
+        [993960000000, 257],
+        [996638400000, 250],
+        [999316800000, 239],
+        [1001908800000, 253],
+        [1004590800000, 235],
+        [1007182800000, 259],
+        [1009861200000, 259],
+        [1012539600000, 264],
+        [1014958800000, 243],
+        [1017637200000, 240],
+        [1020225600000, 214],
+        [1022904000000, 238],
+        [1025496000000, 251],
+        [1028174400000, 255],
+        [1030852800000, 259],
+        [1033444800000, 248],
+        [1036126800000, 260],
+        [1038718800000, 268],
+        [1041397200000, 246],
+        [1044075600000, 259],
+        [1046494800000, 264],
+        [1049173200000, 273]
+      ];
         
-          
-    // ];
-  
-  console.log("activity",activities);
-  const [lineOptions, setLineOptions] = useState({
+      
+const [lineOptions, setLineOptions] = useState({
     title: { text: "Time series data" },
     xAxis: { type: "datetime" },
     series: [
       {
         name: "foo",
         type: "line",
-        data: activities
+        data: getData()
       }
     ]
   });
@@ -75,7 +108,7 @@ export default function Homepage() {
       {
         name: "foo",
         type: "pie",
-        data: activities
+        data: getData()
       }
     ]
   });
@@ -86,13 +119,14 @@ export default function Homepage() {
       {
         name: "foo",
         type: "column",
-        data: activities
+        data: getData()
       }
     ]
   });
+
   const getProcessedData = (method) => {
     const processedData = [];
-    const monthlyData = activities;
+    const monthlyData = getData();
 
     monthlyData.forEach((el, index) => {
       if (
@@ -104,17 +138,17 @@ export default function Homepage() {
         processedData[processedData.length - 1][1] += el[1];
       }
     });
-    console.log("month",processedData)
+
     return processedData;
   };
 
-  const yearlyData = () => getProcessedData(isSameYear);
-  const quarterlyData =() => getProcessedData(isSameQuarter);
+  const yearlyData = useMemo(() => getProcessedData(isSameYear), []);
+  const quarterlyData = useMemo(() => getProcessedData(isSameQuarter), []);
 
   const setData = (period) => {
     const processedData =
       period === "month"
-        ? activities
+        ? getData()
         : period === "year"
         ? yearlyData
         : quarterlyData;
@@ -125,27 +159,30 @@ export default function Homepage() {
           data: processedData
         }
       ]
-        });
+    });
         setPieOptions({
         series: [
           {
             data: processedData
           }
         ]
-        });
-         setBarOptions({
+      });
+      setBarOptions({
         series: [
           {
             data: processedData
           }
         ]
-        });
+      });
   };
 function handleInput(e){
     const newvalue = {...value}
     newvalue[e.target.name]=e.target.value;
     setValue(newvalue) 
-}   
+}
+
+
+    
     // function ShowDateMonthly(){
     //     var date = new Date();
     //     var firstDay = new Date(date.getFullYear(), date.getMonth(),2).toISOString().slice(0, 10);
@@ -167,15 +204,7 @@ function handleInput(e){
     //     var annually = firstDay +' to '+lastDay;
     //     console.log("annually",annually);   
     // }
-    function renderGraph(){
-        if(value.selectedValue === 'Line')
-           return   <HighchartsReact highcharts={Highcharts} options={lineOptions}/>
-        else if(value.selectedValue==='Bar')
-           return <HighchartsReact highcharts={Highcharts} options={barOptions}/>
-        else 
-             return<HighchartsReact highcharts={Highcharts} options={pieOptions} />
 
-     }
     const { currentUser } = useAuth()
     console.log('user',currentUser)
 
@@ -207,7 +236,15 @@ function handleInput(e){
     //       },
     //     ],
     //   };
-     
+      function renderGraph(){
+        if(value.selectedValue === 'Line')
+           return   <HighchartsReact highcharts={Highcharts} options={lineOptions}/>
+        else if(value.selectedValue==='Bar')
+           return <HighchartsReact highcharts={Highcharts} options={barOptions}/>
+        else 
+             return<HighchartsReact highcharts={Highcharts} options={pieOptions} />
+
+     }
 
       return (            
             <div className='container-fluid'>
