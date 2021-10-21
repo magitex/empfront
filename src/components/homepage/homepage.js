@@ -1,14 +1,14 @@
-import React,{useState,useEffect } from 'react';
+import React from 'react';
 import './homepage.css';
 import { useAuth } from "../../contexts/useAuth";
 import { SimpleTimeSeries } from './ChartViewer';
 //import { Pie,Bar } from 'react-chartjs-2';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
-import Helper from '../helpers/networks';
+//import Helper from '../helpers/networks';
 
 export default function Homepage() { 
-const[invoicelist,setinvoice] = useState([])
+//const[invoicelist,setinvoice] = useState([])
 //   async function invoiceList() {       
 //       let data;          
 //       data= await Helper.invoiceData();

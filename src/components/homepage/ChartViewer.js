@@ -3,9 +3,9 @@ import FusionCharts from 'fusioncharts';
 import TimeSeries from 'fusioncharts/fusioncharts.timeseries';
 import ReactFC from 'react-fusioncharts';
 import './chartviewer.css';
-import Helper from '../helpers/networks';
+//import Helper from '../helpers/networks';
 import Moment from 'moment';
-import axios from 'axios';
+//import axios from 'axios';
 
 ReactFC.fcRoot(FusionCharts, TimeSeries);
 
