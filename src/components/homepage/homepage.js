@@ -1,39 +1,183 @@
-import React from 'react';
+import React,{useState,  useEffect } from 'react';
 import './homepage.css';
 import { useAuth } from "../../contexts/useAuth";
-import { SimpleTimeSeries } from './ChartViewer';
+//import { SimpleTimeSeries } from './ChartViewer';
 //import { Pie,Bar } from 'react-chartjs-2';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
-//import Helper from '../helpers/networks';
+import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
+import Highcharts from "highcharts/highstock";
+import HighchartsReact from "highcharts-react-official";
+//import { isSameQuarter, isSameYear } from "date-fns";
+//import { getData } from "./data";
+import Helper from '../helpers/networks';
+import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+import "../../../node_modules/@syncfusion/ej2-lists/styles/material.css";
+import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+import "../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+
 
 export default function Homepage() { 
-//const[invoicelist,setinvoice] = useState([])
-//   async function invoiceList() {       
-//       let data;          
-//       data= await Helper.invoiceData();
-//       const tempeminvoice =data && data.data; 
-//       setinvoice(tempeminvoice); 
-//       console.log(data);
-//   }
+    const[value,setValue] = useState({       
+        selectedMonth:'',
+        selectedYear:'',
+        selectedValue:'' ,    
+})
+const[invoicelist,setinvoice] = useState([])
+  async function invoiceList() {       
+      let data;          
+      data= await Helper.invoiceData();
+      const tempeminvoice =data && data.data; 
+      setinvoice(tempeminvoice); 
+      console.log(data);
+  }
   
-//   useEffect(()=>{ 
-//       invoiceList();
-//   },[])
-//   function toTimestamp(strDate){
-//     var datum = Date.parse(strDate);
-//     return datum/1000;
-//  }
-//  let activities = [];
-//  invoicelist.map((invoice,key)=>(
-//  //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
-//     activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
+  useEffect(()=>{ 
+      invoiceList();
+  },[])
+  function toTimestamp(strDate){
+    var datum = Date.parse(strDate);
+    return datum/1000;
+ }
+ let activities = [];
+ invoicelist.map((invoice,key)=>(
+ //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+    activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
 
-//      ));
-     //console.log(activities);
+     ));
+     console.log(activities);  
+      
+const lineOptions = {
+    title: { text: "Time series data" },
+    xAxis: { type: "datetime" },
+    series: [
+      {
+        name: "foo",
+        type: "line",
+        data: activities
+      }
+    ]
+  };
+  const pieOptions = {
+    title: { text: "Time series data" },
+    xAxis: { type: "datetime" },
+    series: [
+      {
+        name: "foo",
+        type: "pie",
+        data: activities
+      }
+    ]
+  };
+  const barOptions = {
+    title: { text: "Time series data" },
+    xAxis: { type: "datetime" },
+    series: [
+      {
+        name: "foo",
+        type: "column",
+        data: activities
+      }
+    ]
+  };
+
+//   const getProcessedData = (method) => {
+//     const processedData = [];
+//     const monthlyData = activities
+//     monthlyData.forEach((el, index) => {
+//       if (
+//         index === 0 ||
+//         !method(new Date(el[0]), new Date(monthlyData[index - 1][0]))
+//       ) {
+//         processedData.push(el);
+//       } else {
+//         processedData[processedData.length - 1][1] += el[1];
+//       }
+//     });
+
+//     return processedData;
+//   };
+
+//   const yearlyData = useMemo(() => getProcessedData(isSameYear), []);
+//   const quarterlyData = useMemo(() => getProcessedData(isSameQuarter), []);
+
+//   const setData = (period) => {
+//     const processedData =
+//       period === "month"
+//         ? activities
+//         : period === "year"
+//         ? yearlyData
+//         : quarterlyData;
+
+//         setLineOptions({
+//       series: [
+//         {
+//           data: processedData
+//         }
+//       ]
+//     });
+//         setPieOptions({
+//         series: [
+//           {
+//             data: processedData
+//           }
+//         ]
+//       });
+//       setBarOptions({
+//         series: [
+//           {
+//             data: processedData
+//           }
+//         ]
+//       });
+//   };
+function handleInput(e){
+    const newvalue = {...value}
+    newvalue[e.target.name]=e.target.value;
+    setValue(newvalue) 
+    console.log(newvalue.selectedValue)
+    console.log(newvalue.selectedMonth)
+    console.log(newvalue.selectedYear)
+}
+
+
+    
+    // function ShowDateMonthly(){
+    //     var date = new Date();
+    //     var firstDay = new Date(date.getFullYear(), date.getMonth(),2).toISOString().slice(0, 10);
+    //     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);      
+    //     var monthly = firstDay +' to '+lastDay;
+    //     console.log("monthly",monthly);      
+    // }
+    // function ShowDateQuarterly(){    
+    //     var date = new Date();
+    //     var firstDay = new Date(date.getFullYear(), date.getMonth(),2).toISOString().slice(0, 10);
+    //     var lastDay = new Date(date.getFullYear(), date.getMonth() + 3, 1).toISOString().slice(0, 10);      
+    //     var quarterly = firstDay +' to '+lastDay;
+    //     console.log("quarterly",quarterly);     
+    // }
+    // function ShowDateAnnually(){      
+    //     var date = new Date();
+    //     var firstDay = new Date(date.getFullYear(),1).toISOString().slice(0, 7);
+    //     var lastDay = new Date(date.getFullYear()+1,1).toISOString().slice(0, 7);      
+    //     var annually = firstDay +' to '+lastDay;
+    //     console.log("annually",annually);   
+    // }
 
     const { currentUser } = useAuth()
-    console.log('user',currentUser)   
+    console.log('user',currentUser)    
+      function renderGraph(){
+        if(value.selectedValue === 'Line')
+           return   <HighchartsReact highcharts={Highcharts} options={lineOptions}/>
+        else if(value.selectedValue==='Bar')
+           return <HighchartsReact highcharts={Highcharts} options={barOptions}/>
+        else 
+             return<HighchartsReact highcharts={Highcharts} options={pieOptions} />
+
+     }
+
       return (            
             <div className='container-fluid'>
                 <div className="row">
@@ -41,9 +185,33 @@ export default function Homepage() {
                         <div className="page-title-box">
                             <div className="page-title-right">
                                 <form className="d-flex">                              
-                                {/* <button type="button" className="btn btn-outline-secondary m-1" onClick={() => setData("month")}>Monthly</button>
-                                <button type="button" className="btn btn-outline-secondary m-1" onClick={() => setData("quarter")}>Quarterly</button>
-                                <button type="button" className="btn btn-outline-secondary m-1" onClick={() => setData("year")}>Annually</button> */}
+                                <div className="dropdown float-end dropdown-month">
+                                    <select className="form-select" value={value.selectedMonth} name='selectedMonth' onChange={(e)=>handleInput(e)} aria-label="Default select example">
+                                    <option defaultValue className="dropdown-default">Select month</option>
+                                    <option value="1">1 Month</option>
+                                    <option value="2">2 months</option>
+                                    <option value="3">3 months</option>
+                                    <option value="4">4 months</option>
+                                    <option value="5">5 months</option>
+                                    <option value="6">6 months</option>
+                                    <option value="7">7 months</option>
+                                    <option value="8">8 months</option>
+                                    <option value="9">9 months</option>
+                                    <option value="10">10 months</option>
+                                    <option value="11">11 months</option>
+                                    <option value="12">12 months</option>
+                                    </select>
+                                </div>
+                                <div className="dropdown float-end dropdown-month">
+                                    <select className="form-select" value={value.selectedYear} name='selectedYear' onChange={(e)=>handleInput(e)} aria-label="Default select example">
+                                    <option defaultValue className="dropdown-default">Select Year</option>
+                                    <option value="1">1 Year</option>
+                                    <option value="2">2 Years</option>
+                                    <option value="3">3 Years</option>
+                                    <option value="4">4 Years</option>
+                                    <option value="5">5 Years</option>                                   
+                                    </select>
+                                </div>                              
                                 </form>
                             </div>
                             <h4 className="page-title">Dashboard</h4>
@@ -123,20 +291,33 @@ export default function Homepage() {
                         <div className="card card-h-100">
                             <div className="card-body">                                                        
                             <div className="container-fluid ">
-                                <div className="row d-flex justify-content-between">                                                                                            
-                                    <div>                                  
-                                    <SimpleTimeSeries/>
+                                <div className="row d-flex justify-content-between">
+                                    <div className="col">
+                                    <h3 className="header-title mb-3">Projections Vs Actuals</h3>
+                                    </div>
+                                    <div className="col">
+                                    <DateRangePickerComponent id="daterangepicker" />
+                                    </div>
+                                    <div className="col">
+                                    <div className="dropdown float-end">
+                                    <select className="form-select" value={value.selectedValue} name='selectedValue' onChange={(e)=>handleInput(e)} aria-label="Default select example">
+                                    <option defaultValue className="dropdown-default" >Select Graph Type</option>
+                                    <option value="Pie">Pie</option>
+                                    <option value="Bar">Bar</option>
+                                    <option value="Line">Line</option>
+                                    </select>
+                                    </div>
+                                    </div>
+                                    <div>
+                                    { renderGraph() }                                   
                                     </div>  
                                 </div>
                             </div>
                             </div>
                         </div>
                     </div>
-                </div>  
-                
-                <div className="row">
-                
-                </div>    
+                   
+                </div>      
             </div>
         )
     

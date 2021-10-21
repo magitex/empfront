@@ -42,4 +42,11 @@
 .header-title{
     font-size: 22px;
 }
+.dropdown-default{
+    display: none;
+}
+.dropdown-month{
+    margin: 0px 10px;
+}
+
 
