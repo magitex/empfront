@@ -17,6 +17,7 @@ import "../../../node_modules/@syncfusion/ej2-lists/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+import axios from 'axios';
 
 
 export default function Homepage() { 
@@ -137,6 +138,20 @@ function handleInput(e){
     const newvalue = {...value}
     newvalue[e.target.name]=e.target.value;
     setValue(newvalue) 
+   
+         axios.get('http://localhost:4000/invoice/'+e.target.value)
+         .then(
+             response => {
+                // console.log(response.data._id);
+                 //newinvDetails.id = response.data._id;
+                 console.log('return',response);
+ 
+             
+             },
+             error => {
+              console.error(error);
+             }
+            );
     console.log(newvalue.selectedValue)
     console.log(newvalue.selectedMonth)
     console.log(newvalue.selectedYear)
