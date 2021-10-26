@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import classes from "./Dashboard.module.css";
 import LineGraph from "./LineGraph";
+import 'antd/dist/antd.css';
+import { DatePicker } from 'antd';
 import axios from 'axios';
-import { secondQuarterData,thirdQuarterData,fourthQuarterData, secondQuarterLabels,thirdQuarterLabels,fourthQuarterLabels } from "./mockData";
 
 const monthlyData = [];
 
@@ -11,7 +12,14 @@ const monthlyData = [];
  const dailyLabels = [];
   const firstQuarterData = []
  const firstQuarterLabels = [];
+  const secondQuarterData = []
+ const secondQuarterLabels = [];
 
+ const thirdQuarterData = []
+ const thirdQuarterLabels = [];
+
+ const fourthQuarterData = []
+ const fourthQuarterLabels = [];
 export default class Dashboard extends Component {
     constructor (props) {
         super (props);
@@ -28,7 +36,9 @@ export default class Dashboard extends Component {
     //     labels: MonthLabels
     // }
 
- 
+    onChange(date, dateString) {
+      console.log(dateString);
+    }
     
     
     handleButtonClick = e => {
@@ -126,7 +136,8 @@ export default class Dashboard extends Component {
               }
              );
          }
-         else if(e.target.value=='quarterly')
+
+         else if(e.target.value=='quarterly' || e.target.value=='1')
          {
 
           axios.get('http://localhost:4000/invoice/'+e.target.value)
@@ -210,6 +221,258 @@ export default class Dashboard extends Component {
               }
              );
          }
+         else if(e.target.value=='2')
+         {
+
+          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          .then(
+              response => {
+                  console.log('response',response.data);
+  
+                  response.data.map((invoice,key)=>{
+                    console.log('ttl',invoice.totalSaleAmount);
+                  //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                  secondQuarterData[key]=invoice.totalSaleAmount;
+                  
+                  }); 
+  
+                   
+                  
+                  response.data.map((invoice,key)=>{
+                      var mnthname='';
+                      switch(invoice._id) {
+                          case '01':
+                           mnthname='January';
+                            break;
+                          case '02':
+                              mnthname='February';
+  
+                            break;
+                          case '03':
+                              mnthname='March';
+  
+                            break;
+                            case '04':
+                              mnthname='April';
+  
+                            break;
+                            case '05':
+                              mnthname='May';
+  
+                            break;
+                            case '06':
+                              mnthname='June';
+  
+                            break;
+                            case '07':
+                              mnthname='July';
+  
+                            break;
+                            case '08':
+                              mnthname='August';
+  
+                            break;
+                            case '09':
+                              mnthname='September';
+  
+                            break;
+                            case '10':
+                              mnthname='October';
+  
+                            break;
+                            case '11':
+                              mnthname='November';
+  
+                            break;
+                            case '12':
+                              mnthname='December';
+  
+                            break;
+                            
+                        } 
+                      //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                   
+                      secondQuarterLabels[key]=mnthname;
+                      
+                  }); 
+                         console.log('invDateLable',secondQuarterLabels);
+  
+  
+              
+              },
+              error => {
+               console.error(error);
+              }
+             );
+         }
+         else if(e.target.value=='3')
+         {
+
+          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          .then(
+              response => {
+                  console.log('response',response.data);
+  
+                  response.data.map((invoice,key)=>{
+                    console.log('ttl',invoice.totalSaleAmount);
+                  //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                  thirdQuarterData[key]=invoice.totalSaleAmount;
+                  
+                  }); 
+  
+                   
+                  
+                  response.data.map((invoice,key)=>{
+                      var mnthname='';
+                      switch(invoice._id) {
+                          case '01':
+                           mnthname='January';
+                            break;
+                          case '02':
+                              mnthname='February';
+  
+                            break;
+                          case '03':
+                              mnthname='March';
+  
+                            break;
+                            case '04':
+                              mnthname='April';
+  
+                            break;
+                            case '05':
+                              mnthname='May';
+  
+                            break;
+                            case '06':
+                              mnthname='June';
+  
+                            break;
+                            case '07':
+                              mnthname='July';
+  
+                            break;
+                            case '08':
+                              mnthname='August';
+  
+                            break;
+                            case '09':
+                              mnthname='September';
+  
+                            break;
+                            case '10':
+                              mnthname='October';
+  
+                            break;
+                            case '11':
+                              mnthname='November';
+  
+                            break;
+                            case '12':
+                              mnthname='December';
+  
+                            break;
+                            
+                        } 
+                      //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                   
+                      thirdQuarterLabels[key]=mnthname;
+                      
+                  }); 
+                         console.log('invDateLable',thirdQuarterLabels);
+  
+  
+              
+              },
+              error => {
+               console.error(error);
+              }
+             );
+         }
+         else if(e.target.value=='4')
+         {
+
+          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          .then(
+              response => {
+                  console.log('response',response.data);
+  
+                  response.data.map((invoice,key)=>{
+                    console.log('ttl',invoice.totalSaleAmount);
+                  //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                  fourthQuarterData[key]=invoice.totalSaleAmount;
+                  
+                  }); 
+  
+                   
+                  
+                  response.data.map((invoice,key)=>{
+                      var mnthname='';
+                      switch(invoice._id) {
+                          case '01':
+                           mnthname='January';
+                            break;
+                          case '02':
+                              mnthname='February';
+  
+                            break;
+                          case '03':
+                              mnthname='March';
+  
+                            break;
+                            case '04':
+                              mnthname='April';
+  
+                            break;
+                            case '05':
+                              mnthname='May';
+  
+                            break;
+                            case '06':
+                              mnthname='June';
+  
+                            break;
+                            case '07':
+                              mnthname='July';
+  
+                            break;
+                            case '08':
+                              mnthname='August';
+  
+                            break;
+                            case '09':
+                              mnthname='September';
+  
+                            break;
+                            case '10':
+                              mnthname='October';
+  
+                            break;
+                            case '11':
+                              mnthname='November';
+  
+                            break;
+                            case '12':
+                              mnthname='December';
+  
+                            break;
+                            
+                        } 
+                      //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+                   
+                      fourthQuarterLabels[key]=mnthname;
+                      
+                  }); 
+                         console.log('invDateLable',fourthQuarterLabels);
+  
+  
+              
+              },
+              error => {
+               console.error(error);
+              }
+             );
+         }
          else
          {
           axios.get('http://localhost:4000/invoice/'+e.target.value)
@@ -271,10 +534,10 @@ export default class Dashboard extends Component {
                         <option value="4">4th Quarter</option>                                                                    
                     </select>;
           } else if(this.state.selectedValue==="monthly") {
-            button = <div>monthly</div>;
+            button = <DatePicker className="any-picker" onChange={this.onChange} picker="year" />          
           }
           else {
-            button = <div>daily</div>;
+            button = <DatePicker onChange={this.onChange} picker="month" />
           }
         return (
             
