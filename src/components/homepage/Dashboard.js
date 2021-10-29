@@ -3,6 +3,7 @@ import classes from "./Dashboard.module.css";
 import LineGraph from "./LineGraph";
 import 'antd/dist/antd.css';
 import { DatePicker } from 'antd';
+import Helper from '../helpers/networks';
 import axios from 'axios';
 const monthlyData = [];
 
@@ -27,7 +28,7 @@ export default class Dashboard extends Component {
         this.state = {
             data: [],           
             labels: [],           
-            selectedValue:"",
+            selectedValue:"monthly",
             monthRange:"",
             yearRange:"",
         };
@@ -131,13 +132,16 @@ export default class Dashboard extends Component {
              );
   }
     onChange(date, dateString) {
-      console.log(date);
+      console.log('dateString',dateString);
       this.setState({
         monthRange:dateString,
        
       })
-      
-  axios.get('http://localhost:4000/invoice/daily/'+dateString)
+      if(this.state.selectedValue=='monthly')
+              {
+                const  monthlyData1=[];
+                const  MonthLabels1=[];
+  axios.get('http://localhost:4000/invoice/monthly/'+dateString)
   .then(
       response => {
           console.log('response',response.data);
@@ -145,7 +149,7 @@ export default class Dashboard extends Component {
           response.data.map((invoice,key)=>{
             console.log('ttl',invoice.totalSaleAmount);
           //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
-          monthlyData[key]=invoice.totalSaleAmount;
+          monthlyData1[key]=invoice.totalSaleAmount;
           
           }); 
 
@@ -205,14 +209,16 @@ export default class Dashboard extends Component {
                 } 
               //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
            
-              MonthLabels[key]=mnthname;
+              MonthLabels1[key]=mnthname;
               
           }); 
           this.setState({
-           
+            data: monthlyData1,         
+        labels: MonthLabels1,
             selectedValue:'monthly',
-        }) 
-                // console.log('invDateLable',MonthLabels);
+        })
+          
+                 //console.log('invDateLable',MonthLabels);
 
 
       
@@ -226,6 +232,420 @@ export default class Dashboard extends Component {
     //     yearRange:dateString,
     // }) 
     }
+    else if(this.state.selectedValue=='daily')
+              {
+                const  dailyData1=[];
+                const  dailyLabels1=[];
+  axios.get('http://localhost:4000/invoice/daily/'+dateString)
+  .then(
+    response => {
+      console.log('response',response.data);
+
+        response.data.map((invoice,key)=>(
+        //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+        dailyData1[key]=invoice.totalSaleAmount
+        
+           )); 
+
+         
+        
+        response.data.map((invoice,key)=>{
+          var day='' +invoice._id.day+'' ;
+          //console.log('day',day);
+
+            //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+            dailyLabels1[key]=day;
+
+            
+        }); 
+        
+   
+        this.setState({
+          data: dailyData1,         
+      labels: dailyLabels1,
+          selectedValue:'daily',
+      })
+               console.log('prev',this.state);
+               console.log('data111',dailyData1);
+               console.log('dailyLabels',dailyLabels1);
+
+
+    
+    },
+    error => {
+     console.error(error);
+    }
+   );
+    //    this.setState({
+    //     monthRange:dateString,
+    //     yearRange:dateString,
+    // }) 
+    }
+    else if(this.state.selectedValue=='quarterly' || this.state.selectedValue=='1')
+    {
+      const  firstQuarterData1=[];
+      const  firstQuarterLabels1=[];
+     axios.get('http://localhost:4000/invoice/quarterly/'+dateString)
+     .then(
+         response => {
+             console.log('response',response.data);
+
+             response.data.map((invoice,key)=>{
+               console.log('ttl',invoice.totalSaleAmount);
+             //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+             firstQuarterData1[key]=invoice.totalSaleAmount;
+             
+             }); 
+
+              
+             
+             response.data.map((invoice,key)=>{
+                 var mnthname='';
+                 switch(invoice._id) {
+                     case '01':
+                      mnthname='January';
+                       break;
+                     case '02':
+                         mnthname='February';
+
+                       break;
+                     case '03':
+                         mnthname='March';
+
+                       break;
+                       case '04':
+                         mnthname='April';
+
+                       break;
+                       case '05':
+                         mnthname='May';
+
+                       break;
+                       case '06':
+                         mnthname='June';
+
+                       break;
+                       case '07':
+                         mnthname='July';
+
+                       break;
+                       case '08':
+                         mnthname='August';
+
+                       break;
+                       case '09':
+                         mnthname='September';
+
+                       break;
+                       case '10':
+                         mnthname='October';
+
+                       break;
+                       case '11':
+                         mnthname='November';
+
+                       break;
+                       case '12':
+                         mnthname='December';
+
+                       break;
+                       
+                   } 
+                 //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+              
+                 firstQuarterLabels1[key]=mnthname;
+                 
+             }); 
+             this.setState({
+              data: firstQuarterData1,         
+          labels: firstQuarterLabels1,
+              selectedValue:'quarterly',
+          })
+                   // console.log('invDateLable',firstQuarterLabels);
+
+
+         
+         },
+         error => {
+          console.error(error);
+         }
+        );
+    }
+    else if(this.state.selectedValue=='2')
+    {
+      const  secondQuarterData1=[];
+      const  secondQuarterLabels1=[];
+     axios.get('http://localhost:4000/invoice/2/'+dateString)
+     .then(
+         response => {
+             console.log('response',response.data);
+
+             response.data.map((invoice,key)=>{
+               console.log('ttl',invoice.totalSaleAmount);
+             //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+             secondQuarterData1[key]=invoice.totalSaleAmount;
+             
+             }); 
+
+              
+             
+             response.data.map((invoice,key)=>{
+                 var mnthname='';
+                 switch(invoice._id) {
+                     case '01':
+                      mnthname='January';
+                       break;
+                     case '02':
+                         mnthname='February';
+
+                       break;
+                     case '03':
+                         mnthname='March';
+
+                       break;
+                       case '04':
+                         mnthname='April';
+
+                       break;
+                       case '05':
+                         mnthname='May';
+
+                       break;
+                       case '06':
+                         mnthname='June';
+
+                       break;
+                       case '07':
+                         mnthname='July';
+
+                       break;
+                       case '08':
+                         mnthname='August';
+
+                       break;
+                       case '09':
+                         mnthname='September';
+
+                       break;
+                       case '10':
+                         mnthname='October';
+
+                       break;
+                       case '11':
+                         mnthname='November';
+
+                       break;
+                       case '12':
+                         mnthname='December';
+
+                       break;
+                       
+                   } 
+                 //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+              
+                 secondQuarterLabels1[key]=mnthname;
+                 
+             }); 
+             this.setState({
+              data: secondQuarterData1,         
+          labels: secondQuarterLabels1,
+              selectedValue:'2',
+          })
+                    //console.log('invDateLable',secondQuarterLabels);
+
+
+         
+         },
+         error => {
+          console.error(error);
+         }
+        );
+    }
+    else if(this.state.selectedValue=='3')
+    {
+      const  thirdQuarterData3=[];
+      const  thirdQuarterLabels3=[];
+     axios.get('http://localhost:4000/invoice/3/'+dateString)
+     .then(
+         response => {
+             console.log('response',response.data);
+
+             response.data.map((invoice,key)=>{
+               console.log('ttl',invoice.totalSaleAmount);
+             //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+             thirdQuarterData3[key]=invoice.totalSaleAmount;
+             
+             }); 
+
+              
+             
+             response.data.map((invoice,key)=>{
+                 var mnthname='';
+                 switch(invoice._id) {
+                     case '01':
+                      mnthname='January';
+                       break;
+                     case '02':
+                         mnthname='February';
+
+                       break;
+                     case '03':
+                         mnthname='March';
+
+                       break;
+                       case '04':
+                         mnthname='April';
+
+                       break;
+                       case '05':
+                         mnthname='May';
+
+                       break;
+                       case '06':
+                         mnthname='June';
+
+                       break;
+                       case '07':
+                         mnthname='July';
+
+                       break;
+                       case '08':
+                         mnthname='August';
+
+                       break;
+                       case '09':
+                         mnthname='September';
+
+                       break;
+                       case '10':
+                         mnthname='October';
+
+                       break;
+                       case '11':
+                         mnthname='November';
+
+                       break;
+                       case '12':
+                         mnthname='December';
+
+                       break;
+                       
+                   } 
+                 //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+              
+                 thirdQuarterLabels3[key]=mnthname;
+                 
+             }); 
+             this.setState({
+              data: thirdQuarterData3,         
+          labels: thirdQuarterLabels3,
+              selectedValue:'3',
+          })
+                   // console.log('invDateLable',thirdQuarterLabels);
+
+
+         
+         },
+         error => {
+          console.error(error);
+         }
+        );
+    }
+    else if(this.state.selectedValue=='4')
+    {
+      const  fourthQuarterData1=[];
+      const  fourthQuarterLabels1=[];
+     axios.get('http://localhost:4000/invoice/4/'+dateString)
+     .then(
+         response => {
+             console.log('response',response.data);
+
+             response.data.map((invoice,key)=>{
+               console.log('ttl',invoice.totalSaleAmount);
+             //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+             fourthQuarterData1[key]=invoice.totalSaleAmount;
+             
+             }); 
+
+              
+             
+             response.data.map((invoice,key)=>{
+                 var mnthname='';
+                 switch(invoice._id) {
+                     case '01':
+                      mnthname='January';
+                       break;
+                     case '02':
+                         mnthname='February';
+
+                       break;
+                     case '03':
+                         mnthname='March';
+
+                       break;
+                       case '04':
+                         mnthname='April';
+
+                       break;
+                       case '05':
+                         mnthname='May';
+
+                       break;
+                       case '06':
+                         mnthname='June';
+
+                       break;
+                       case '07':
+                         mnthname='July';
+
+                       break;
+                       case '08':
+                         mnthname='August';
+
+                       break;
+                       case '09':
+                         mnthname='September';
+
+                       break;
+                       case '10':
+                         mnthname='October';
+
+                       break;
+                       case '11':
+                         mnthname='November';
+
+                       break;
+                       case '12':
+                         mnthname='December';
+
+                       break;
+                       
+                   } 
+                 //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+              
+                 fourthQuarterLabels1[key]=mnthname;
+                 
+             }); 
+             this.setState({
+              data: fourthQuarterData1,         
+          labels: fourthQuarterLabels1,
+              selectedValue:'4',
+          })
+            // console.log('invDateLable',fourthQuarterLabels);
+
+
+         
+         },
+         error => {
+          console.error(error);
+         }
+        );
+    }
+    //console.log('dailyData',dailyData);
+
+    console.log('state',this.state);
+
+  }
     
     
     handleButtonClick = e => {
@@ -239,6 +659,8 @@ export default class Dashboard extends Component {
         const isSecondQuarter = value === "2";
         const isThirdQuarter = value === "3";
         const isFourthQuarter = value === "4";
+        //let data;          
+        //data= await Helper.invoicegraphData();
        if(e.target.value=='monthly')
          {
 
@@ -744,18 +1166,22 @@ export default class Dashboard extends Component {
         let button;
         if (this.state.selectedValue==="quarterly" || this.state.selectedValue==="1" || this.state.selectedValue==="2" 
         || this.state.selectedValue==="3" || this.state.selectedValue==="4") {
-            button = <select className="form-select" onChange={this.handleButtonClick} aria-label="Default select example">
+            button = 
+            <div>
+            <select className="form-select" onChange={this.handleButtonClick} aria-label="Default select example">
                         <option defaultValue className="dropdown-default">Select Quarter</option>
                         <option value="1">1st Quarter</option>
                         <option value="2">2nd Quarter</option>
                         <option value="3">3rd Quarter</option>
                         <option value="4">4th Quarter</option>                                                                    
-                    </select>;
-          } else if(this.state.selectedValue==="monthly") {
-            button = <DatePicker className="any-picker" onChange={this.onChange} picker="year" />          
+                    </select>
+                    <DatePicker className="any-picker" onChange={this.onChange} picker="year" />
+                      </div>;
+          } else if(this.state.selectedValue==="daily") {
+            button =  <DatePicker onChange={this.onChange} picker="month" />
           }
           else {
-            button = <DatePicker onChange={this.onChange} picker="month" />
+            button =<DatePicker className="any-picker" onChange={this.onChange} picker="year" />          
           }
         return (
             
