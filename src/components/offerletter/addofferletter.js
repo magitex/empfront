@@ -14,7 +14,7 @@ class Addofferletter extends React.Component {
             
     }
     componentWillMount() {
-        fetch('http://localhost:4000/employees')
+        fetch(process.env.REACT_APP_BASE_URL+'employees')
         .then(data=>{  
             return data.json();      
         }).then(data=> {          
@@ -25,7 +25,7 @@ class Addofferletter extends React.Component {
        
          if(e.target.name==='employeename')
         {
-            axios.get('http://localhost:4000/employees/'+e.target.value) 
+            axios.get(process.env.REACT_APP_BASE_URL+'employees/'+e.target.value) 
             .then(res=>{
                 this.setState({emppdtls : res.data});
                 this.setState({employeename : res.data._id});
@@ -53,14 +53,14 @@ class Addofferletter extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();        
          let newinvDetails = this.state
-         axios.post('http://localhost:4000/offerletter/add',newinvDetails)
+         axios.post(process.env.REACT_APP_BASE_URL+'offerletter/add',newinvDetails)
          .then(
              response => {
                  console.log(response.data._id);
                  newinvDetails.id = response.data._id;
                  console.log(newinvDetails);
  
-                 axios.post('http://localhost:4000/offerpdf/generateofferletterReportWeb',newinvDetails)
+                 axios.post(process.env.REACT_APP_BASE_URL+'offerpdf/generateofferletterReportWeb',newinvDetails)
                  .then(response => console.log(response.data));
              
              },

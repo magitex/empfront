@@ -1,11 +1,10 @@
-import React,{useState,  useEffect } from 'react';
+import React from 'react';
 import './homepage.css';
 import { useAuth } from "../../contexts/useAuth";
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css'; 
 //import Highcharts from "highcharts/highstock";
 //import HighchartsReact from "highcharts-react-official";
-import Helper from '../helpers/networks';
 import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 import "../../../node_modules/@syncfusion/ej2-lists/styles/material.css";
@@ -21,29 +20,18 @@ export default function Homepage() {
 //         selectedYear:'',
 //         selectedValue:'' ,    
 // })
-const[invoicelist,setinvoice] = useState([])
-  async function invoiceList() {       
-      let data;          
-      data= await Helper.invoiceData();
-      const tempeminvoice =data && data.data; 
-      setinvoice(tempeminvoice); 
-      console.log(data);
-  }
-  
-  useEffect(()=>{ 
-      invoiceList();
-  },[])
-  function toTimestamp(strDate){
-    var datum = Date.parse(strDate);
-    return datum/1000;
- }
- let activities = [];
- invoicelist.map((invoice,key)=>(
- //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
-    activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
 
-     ));
-     console.log(activities);  
+//   function toTimestamp(strDate){
+//     var datum = Date.parse(strDate);
+//     return datum/1000;
+//  }
+//  let activities = [];
+//  invoicelist.map((invoice,key)=>(
+ 
+//     activities.push([toTimestamp(invoice.invoicedate),invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next)]) 
+
+//      ));
+//      console.log(activities);  
       
 // const lineOptions = {
 //     title: { text: "Time series" },

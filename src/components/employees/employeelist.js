@@ -36,7 +36,7 @@ function Employeeslist(props) {
     function onDelete(id){
         console.log(id)
         
-            axios.delete('http://localhost:4000/employees/'+id) 
+            axios.delete(process.env.REACT_APP_BASE_URL+'employees/'+id) 
             .then(res=>{
                     console.log(res.data)   
                     employeeList();         

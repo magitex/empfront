@@ -55,7 +55,7 @@ class Addemployees extends Component {
             }
     };
            
-            axios.post( 'http://localhost:4000/profile/upload', formData,config).then(
+            axios.post( `${process.env.REACT_APP_BASE_URL}profile/upload`, formData,config).then(
                 response => {
                  const imageurl = response.data;                 
                  console.log( 'imageurl', imageurl);
@@ -70,7 +70,7 @@ class Addemployees extends Component {
             const newEmployeeDetails = this.state;
             console.log(newEmployeeDetails);
    
-        axios.post('http://localhost:4000/employees/add',newEmployeeDetails)
+        axios.post(`${process.env.REACT_APP_BASE_URL}employees/add`,newEmployeeDetails)
         .then(response => console.log(response.data))        
     
         

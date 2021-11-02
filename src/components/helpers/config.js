@@ -1,5 +1,5 @@
 module.exports = {
-    baseUrl: 'http://localhost:4000/',
+    baseUrl: `${process.env.REACT_APP_BASE_URL}`,
     employeeData: 'employees',
     employeeDetail: 'employees',
     updateEmployee:'employees/update',

@@ -32,7 +32,7 @@ function Offerletterlistlist(props) {
     function onDelete(id){
         console.log(id)
         
-            axios.delete('http://localhost:4000/offerletter/'+id) 
+            axios.delete(process.env.REACT_APP_BASE_URL+'offerletter/'+id) 
             .then(res=>{
                     console.log(res.data)   
                     offerletterList();         
