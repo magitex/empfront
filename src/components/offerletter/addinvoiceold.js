@@ -31,7 +31,7 @@ export default class Addinvoiceold extends Component {
 
   
     componentWillMount() {
-        fetch('http://localhost:4000/customers')
+        fetch(process.env.REACT_APP_BASE_URL+'customers')
         .then(data=>{  
             return data.json();      
         }).then(data=> {          
@@ -64,14 +64,14 @@ export default class Addinvoiceold extends Component {
          newinvDetails.invoiceurl = this.state.invoiceurl;
          
         console.log(newinvDetails);
-        axios.post('http://localhost:4000/invoice/add',newinvDetails)
+        axios.post(process.env.REACT_APP_BASE_URL+'invoice/add',newinvDetails)
         .then(
             response => {
                 console.log(response.data._id);
                 newinvDetails.id = response.data._id;
                 console.log(newinvDetails);
 
-                axios.post('http://localhost:4000/pdf/generateReportWeb',newinvDetails)
+                axios.post(process.env.REACT_APP_BASE_URL+'pdf/generateReportWeb',newinvDetails)
                 .then(response => console.log(response.data));
             
             },

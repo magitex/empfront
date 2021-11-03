@@ -16,7 +16,7 @@ class Addinvoice extends React.Component {
         compdtls:{},        
     }
     componentWillMount() {
-        fetch('http://localhost:4000/customers')
+        fetch(process.env.REACT_APP_BASE_URL+'customers')
         .then(data=>{  
             return data.json();      
         }).then(data=> {          
@@ -30,7 +30,7 @@ class Addinvoice extends React.Component {
         } 
         else if(e.target.name==='companyname')
         {
-            axios.get('http://localhost:4000/customers/'+e.target.value) 
+            axios.get(process.env.REACT_APP_BASE_URL+'customers/'+e.target.value) 
             .then(res=>{
                 this.setState({compdtls : res.data});
                 this.setState({companyname : res.data._id});
@@ -58,14 +58,14 @@ class Addinvoice extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();        
          let newinvDetails = this.state
-         axios.post('http://localhost:4000/invoice/add',newinvDetails)
+         axios.post(process.env.REACT_APP_BASE_URL+'invoice/add',newinvDetails)
          .then(
              response => {
                  console.log(response.data._id);
                  newinvDetails.id = response.data._id;
                  console.log(newinvDetails);
  
-                 axios.post('http://localhost:4000/pdf/generateReportWeb',newinvDetails)
+                 axios.post(process.env.REACT_APP_BASE_URL+'pdf/generateReportWeb',newinvDetails)
                  .then(response => console.log(response.data));
              
              },

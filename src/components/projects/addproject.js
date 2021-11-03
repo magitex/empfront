@@ -26,7 +26,7 @@ class Addproject extends Component {
         const newProjects = this.state
         console.log(newProjects)
 
-        axios.post('http://localhost:4000/projects/add',newProjects)
+        axios.post(process.env.REACT_APP_BASE_URL+'projects/add',newProjects)
         .then(response => console.log(response.data))
         window.location=('/projectlist')
 

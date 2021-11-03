@@ -3,6 +3,7 @@ import axios from'axios';
 import { withRouter } from 'react-router-dom';
 import Customers from '../customers/customers';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import dotenv from 'dotenv';
 
 
 class AddCustomers extends Component {
@@ -43,7 +44,7 @@ class AddCustomers extends Component {
         e.preventDefault();
         const newCustomerDetails = this.state
         
-        axios.post('http://localhost:4000/customers/add',newCustomerDetails)
+        axios.post(`${process.env.REACT_APP_BASE_URL}customers/add`,newCustomerDetails)
         .then(response => console.log(response.data))
         window.location=('/customerslist')
 

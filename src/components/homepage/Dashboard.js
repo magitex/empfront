@@ -41,7 +41,7 @@ export default class Dashboard extends Component {
     // }
     componentWillMount() {
       
-      axios.get('http://localhost:4000/invoice/monthly')
+      axios.get(process.env.REACT_APP_BASE_URL+'invoice/monthly')
           .then(
               response => {
                   console.log('response',response.data);
@@ -51,6 +51,7 @@ export default class Dashboard extends Component {
                   //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                   
                   monthlyData[key]=invoice.totalSaleAmount;
+                  return true;
                   
                   }); 
   
@@ -63,6 +64,7 @@ export default class Dashboard extends Component {
                   response.data.map((invoice,key)=>{
                       var mnthname='';
                       switch(invoice._id) {
+                        default:
                           case '01':
                            mnthname='January';
                             break;
@@ -115,7 +117,7 @@ export default class Dashboard extends Component {
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                    
                       MonthLabels[key]=mnthname;
-                      
+                      return true;
                   }); 
                   this.setState({
                     labels: MonthLabels,
@@ -137,11 +139,16 @@ export default class Dashboard extends Component {
         monthRange:dateString,
        
       })
+<<<<<<< HEAD
       if(this.state.selectedValue=='monthly')
               {
                 const  monthlyData1=[];
                 const  MonthLabels1=[];
   axios.get('http://localhost:4000/invoice/monthly/'+dateString)
+=======
+      
+  axios.get(process.env.REACT_APP_BASE_URL+'invoice/daily/'+dateString)
+>>>>>>> f44e9b123d6435b63384c873d3f07a0b334f101f
   .then(
       response => {
           console.log('response',response.data);
@@ -149,8 +156,13 @@ export default class Dashboard extends Component {
           response.data.map((invoice,key)=>{
             console.log('ttl',invoice.totalSaleAmount);
           //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
+<<<<<<< HEAD
           monthlyData1[key]=invoice.totalSaleAmount;
           
+=======
+          monthlyData[key]=invoice.totalSaleAmount;
+          return true;
+>>>>>>> f44e9b123d6435b63384c873d3f07a0b334f101f
           }); 
 
            
@@ -158,6 +170,7 @@ export default class Dashboard extends Component {
           response.data.map((invoice,key)=>{
               var mnthname='';
               switch(invoice._id) {
+                default:
                   case '01':
                    mnthname='January';
                     break;
@@ -209,8 +222,13 @@ export default class Dashboard extends Component {
                 } 
               //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
            
+<<<<<<< HEAD
               MonthLabels1[key]=mnthname;
               
+=======
+              MonthLabels[key]=mnthname;
+              return true;
+>>>>>>> f44e9b123d6435b63384c873d3f07a0b334f101f
           }); 
           this.setState({
             data: monthlyData1,         
@@ -659,12 +677,16 @@ export default class Dashboard extends Component {
         const isSecondQuarter = value === "2";
         const isThirdQuarter = value === "3";
         const isFourthQuarter = value === "4";
+<<<<<<< HEAD
         //let data;          
         //data= await Helper.invoicegraphData();
        if(e.target.value=='monthly')
+=======
+       if(e.target.value==='monthly')
+>>>>>>> f44e9b123d6435b63384c873d3f07a0b334f101f
          {
 
-  axios.get('http://localhost:4000/invoice/'+e.target.value)
+  axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
   .then(
       response => {
           console.log('response',response.data);
@@ -673,7 +695,7 @@ export default class Dashboard extends Component {
             console.log('ttl',invoice.totalSaleAmount);
           //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
           monthlyData[key]=invoice.totalSaleAmount;
-          
+          return true;
           }); 
 
            
@@ -681,6 +703,7 @@ export default class Dashboard extends Component {
           response.data.map((invoice,key)=>{
               var mnthname='';
               switch(invoice._id) {
+                default:
                   case '01':
                    mnthname='January';
                     break;
@@ -733,7 +756,7 @@ export default class Dashboard extends Component {
               //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
            
               MonthLabels[key]=mnthname;
-              
+              return true;
           }); 
           this.setState({
            
@@ -753,10 +776,10 @@ export default class Dashboard extends Component {
           
          }
 
-         else if(e.target.value=='quarterly' || e.target.value=='1')
+         else if(e.target.value==='quarterly' || e.target.value==='1')
          {
 
-          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
           .then(
               response => {
                   console.log('response',response.data);
@@ -765,7 +788,7 @@ export default class Dashboard extends Component {
                     console.log('ttl',invoice.totalSaleAmount);
                   //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                   firstQuarterData[key]=invoice.totalSaleAmount;
-                  
+                  return true;
                   }); 
   
                    
@@ -773,6 +796,7 @@ export default class Dashboard extends Component {
                   response.data.map((invoice,key)=>{
                       var mnthname='';
                       switch(invoice._id) {
+                        default:
                           case '01':
                            mnthname='January';
                             break;
@@ -825,7 +849,7 @@ export default class Dashboard extends Component {
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                    
                       firstQuarterLabels[key]=mnthname;
-                      
+                      return true;
                   }); 
                   this.setState({
                    
@@ -841,10 +865,10 @@ export default class Dashboard extends Component {
               }
              );
          }
-         else if(e.target.value=='2')
+         else if(e.target.value==='2')
          {
 
-          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
           .then(
               response => {
                   console.log('response',response.data);
@@ -853,7 +877,7 @@ export default class Dashboard extends Component {
                     console.log('ttl',invoice.totalSaleAmount);
                   //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                   secondQuarterData[key]=invoice.totalSaleAmount;
-                  
+                  return true;
                   }); 
   
                    
@@ -861,6 +885,7 @@ export default class Dashboard extends Component {
                   response.data.map((invoice,key)=>{
                       var mnthname='';
                       switch(invoice._id) {
+                        default:
                           case '01':
                            mnthname='January';
                             break;
@@ -913,7 +938,7 @@ export default class Dashboard extends Component {
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                    
                       secondQuarterLabels[key]=mnthname;
-                      
+                      return true;
                   }); 
                   this.setState({
                    
@@ -929,10 +954,10 @@ export default class Dashboard extends Component {
               }
              );
          }
-         else if(e.target.value=='3')
+         else if(e.target.value==='3')
          {
 
-          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
           .then(
               response => {
                   console.log('response',response.data);
@@ -941,7 +966,7 @@ export default class Dashboard extends Component {
                     console.log('ttl',invoice.totalSaleAmount);
                   //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                   thirdQuarterData[key]=invoice.totalSaleAmount;
-                  
+                  return true;
                   }); 
   
                    
@@ -949,6 +974,7 @@ export default class Dashboard extends Component {
                   response.data.map((invoice,key)=>{
                       var mnthname='';
                       switch(invoice._id) {
+                        default:
                           case '01':
                            mnthname='January';
                             break;
@@ -1001,7 +1027,7 @@ export default class Dashboard extends Component {
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                    
                       thirdQuarterLabels[key]=mnthname;
-                      
+                      return true;
                   }); 
                   this.setState({
                    
@@ -1017,10 +1043,10 @@ export default class Dashboard extends Component {
               }
              );
          }
-         else if(e.target.value=='4')
+         else if(e.target.value==='4')
          {
 
-          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
           .then(
               response => {
                   console.log('response',response.data);
@@ -1029,7 +1055,7 @@ export default class Dashboard extends Component {
                     console.log('ttl',invoice.totalSaleAmount);
                   //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                   fourthQuarterData[key]=invoice.totalSaleAmount;
-                  
+                  return true;
                   }); 
   
                    
@@ -1037,6 +1063,7 @@ export default class Dashboard extends Component {
                   response.data.map((invoice,key)=>{
                       var mnthname='';
                       switch(invoice._id) {
+                        default:
                           case '01':
                            mnthname='January';
                             break;
@@ -1089,7 +1116,7 @@ export default class Dashboard extends Component {
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                    
                       fourthQuarterLabels[key]=mnthname;
-                      
+                      return true;
                   }); 
 
                      this.setState({
@@ -1107,7 +1134,7 @@ export default class Dashboard extends Component {
          }
          else
          {
-          axios.get('http://localhost:4000/invoice/'+e.target.value)
+          axios.get(process.env.REACT_APP_BASE_URL+'invoice/'+e.target.value)
           .then(
               response => {
                   //console.log('response',response.data);
@@ -1126,7 +1153,7 @@ export default class Dashboard extends Component {
 
                       //total=invoice.invoiceDetails.map(item => eval(item.totalamount)).reduce((prev, next) => prev + next);
                       dailyLabels[key]=day;
-
+                      return true;
                       
                   }); 
                   this.setState({
@@ -1161,7 +1188,7 @@ export default class Dashboard extends Component {
 
 
     render() {
-        const { data,average,labels } = this.state;       
+        const { data,labels} = this.state;       
         console.log("render",this.state);
         let button;
         if (this.state.selectedValue==="quarterly" || this.state.selectedValue==="1" || this.state.selectedValue==="2" 
@@ -1216,8 +1243,8 @@ export default class Dashboard extends Component {
                 </div>
                
                 <LineGraph
-                    data={this.state.data}                   
-                    labels={this.state.labels} />
+                    data={data}                   
+                    labels={labels} />
 
             </div>
         )
