@@ -3,7 +3,7 @@ import axios from'axios';
 import { withRouter } from 'react-router-dom';
 import Customers from '../customers/customers';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
-import dotenv from 'dotenv';
+
 
 
 class AddCustomers extends Component {
